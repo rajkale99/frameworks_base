@@ -64,6 +64,7 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -349,6 +350,7 @@ public class Camera {
         } catch (RuntimeException e) {
             Log.e(TAG, "Lock screen is disabled, facelock can't get camera info");
         }
+        _getCameraInfo(cameraId, cameraInfo);
         IBinder b = ServiceManager.getService(Context.AUDIO_SERVICE);
         IAudioService audioService = IAudioService.Stub.asInterface(b);
         try {
