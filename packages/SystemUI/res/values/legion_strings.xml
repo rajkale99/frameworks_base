@@ -122,4 +122,10 @@
     <string name="system_theme_style_material_ocean">Material Ocean</string>
     <string name="system_theme_style_xtended_clear">Xtended Clear</string>
 
+    <!-- Sound QS Tile -->
+    <string name="quick_settings_sound_label">Sound</string>
+    <string name="quick_settings_sound_ring">Ring</string>
+    <string name="quick_settings_sound_vibrate">Vibrate</string>
+    <string name="quick_settings_sound_dnd">Do not disturb</string>
+
 </resources>
