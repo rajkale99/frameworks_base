@@ -4863,7 +4863,31 @@ public final class Settings {
          */
         public static final String MULTI_AUDIO_FOCUS_ENABLED = "multi_audio_focus_enabled";
 
+	/**
+         * How many rows to show in the qs panel when in portrait
+         * @hide
+         */
+        public static final String QS_ROWS_PORTRAIT = "qs_rows_portrait";
+
         /**
+         * How many rows to show in the qs panel when in landscape
+         * @hide
+         */
+        public static final String QS_ROWS_LANDSCAPE = "qs_rows_landscape";
+
+        /**
+         * How many columns to show in the qs panel when in portrait
+         * @hide
+         */
+        public static final String QS_COLUMNS_PORTRAIT = "qs_columns_portrait";
+
+        /**
+         * How many columns to show in the qs panel when in landscape
+         * @hide
+         */
+        public static final String QS_COLUMNS_LANDSCAPE = "qs_columns_landscape";
+
+	/**
          * @hide
          */
         public static final String DEVICE_PROXI_CHECK_ENABLED = "device_proxi_check_enabled";
