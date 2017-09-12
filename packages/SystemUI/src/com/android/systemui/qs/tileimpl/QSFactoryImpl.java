@@ -44,6 +44,7 @@ import com.android.systemui.qs.tiles.NfcTile;
 import com.android.systemui.qs.tiles.NightDisplayTile;
 import com.android.systemui.qs.tiles.RotationLockTile;
 import com.android.systemui.qs.tiles.ScreenRecordTile;
+import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.SyncTile;
 import com.android.systemui.qs.tiles.UiModeNightTile;
 import com.android.systemui.qs.tiles.UserTile;
@@ -86,6 +87,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<AlwaysOnDisplayTile> mAlwaysOnDisplayTileProvider;
     private final Provider<CPUInfoTile> mCPUInfoTileProvider;
     private final Provider<CaffeineTile> mCaffeineTileProvider;
+    private final Provider<ScreenshotTile> mScreenshotTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
 
@@ -114,7 +116,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<SyncTile> syncTileProvider,
             Provider<AlwaysOnDisplayTile> alwaysOnDisplayTileProvider,
             Provider<CPUInfoTile> cpuInfoTileProvider,
-            Provider<CaffeineTile> caffeineTileProvider) {
+            Provider<CaffeineTile> caffeineTileProvider,
+            Provider<ScreenshotTile> screenshotTileProvider) {
         mQsHostLazy = qsHostLazy;
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
@@ -140,6 +143,7 @@ public class QSFactoryImpl implements QSFactory {
         mAlwaysOnDisplayTileProvider = alwaysOnDisplayTileProvider;
         mCPUInfoTileProvider = cpuInfoTileProvider;
         mCaffeineTileProvider = caffeineTileProvider;
+        mScreenshotTileProvider = screenshotTileProvider;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -199,6 +203,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mCPUInfoTileProvider.get();
             case "caffeine":
                 return mCaffeineTileProvider.get();
+            case "screenshot":
+                return mScreenshotTileProvider.get();
         }
 
         // Custom tiles
