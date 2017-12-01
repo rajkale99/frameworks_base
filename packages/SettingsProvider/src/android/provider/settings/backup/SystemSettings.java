@@ -90,5 +90,6 @@ public class SystemSettings {
         Settings.System.RINGTONE_VIBRATION_PATTERN,
         Settings.System.CUSTOM_RINGTONE_VIBRATION_PATTERN,
         Settings.System.NOTIFICATION_HEADERS,
+        Settings.System.PROXIMITY_ON_WAKE
     };
 }
