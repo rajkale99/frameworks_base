@@ -54,6 +54,7 @@ import com.android.systemui.qs.tiles.ScreenshotTile;
 import com.android.systemui.qs.tiles.ThemeTile;
 import com.android.systemui.qs.tiles.SyncTile;
 import com.android.systemui.qs.tiles.SleepScreenTile;
+import com.android.systemui.qs.tiles.SoundSearchTile;
 import com.android.systemui.qs.tiles.UiModeNightTile;
 import com.android.systemui.qs.tiles.SoundTile;
 import com.android.systemui.qs.tiles.UserTile;
@@ -107,6 +108,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<RebootTile> mRebootTileProvider;
     private final Provider<HeadsUpTile> mHeadsUpTileProvider;
     private final Provider<FPSInfoTile> mFPSInfoTileProvider;
+    private final Provider<SoundSearchTile> mSoundSearchTileProvider;
 
     private final Lazy<QSHost> mQsHostLazy;
     private final Provider<DcDimmingTile> mDcDimmingTileProvider;
@@ -147,7 +149,8 @@ public class QSFactoryImpl implements QSFactory {
             Provider<RebootTile> rebootTileProvider,
             Provider<DcDimmingTile> dcDimTileProvider,
             Provider<HeadsUpTile> headsUpTileProvider,
-            Provider<FPSInfoTile> fpsInfoTileProvider) {
+            Provider<FPSInfoTile> fpsInfoTileProvider,
+            Provider<SoundSearchTile> soundSearchTileProvider) {
         mQsHostLazy = qsHostLazy;
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;
@@ -184,6 +187,7 @@ public class QSFactoryImpl implements QSFactory {
         mDcDimmingTileProvider = dcDimTileProvider;
         mHeadsUpTileProvider = headsUpTileProvider;
         mFPSInfoTileProvider = fpsInfoTileProvider;
+        mSoundSearchTileProvider = soundSearchTileProvider;
     }
 
     public QSTile createTile(String tileSpec) {
@@ -265,6 +269,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mDcDimmingTileProvider.get();
             case "fpsinfo":
                 return mFPSInfoTileProvider.get();
+            case "soundsearch":
+                return mSoundSearchTileProvider.get();
         }
 
         // Custom tiles
