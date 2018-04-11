@@ -4930,6 +4930,12 @@ public final class Settings {
 
         public static final String THREE_FINGER_GESTURE = "three_finger_gesture";
 
+		/**
+         * Whether to change the transparency of the qs panel
+         * @hide
+         */
+        public static final String QS_PANEL_BG_ALPHA = "qs_panel_bg_alpha";
+
         /**
          * Volume rocker wake
          * @hide
