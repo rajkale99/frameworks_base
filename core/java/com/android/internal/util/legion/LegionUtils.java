@@ -127,7 +127,6 @@ public class LegionUtils {
         FireActions.toggleCameraFlash();
     }
 
-
     /**
      * @hide
      */
@@ -136,6 +135,13 @@ public class LegionUtils {
         keyguardIntent.setPackage(SYSTEMUI_PACKAGE_NAME);
         keyguardIntent.putExtra(DISMISS_KEYGUARD_EXTRA_INTENT, launchIntent);
         context.sendBroadcastAsUser(keyguardIntent, user);
+    }
+
+    public static void toggleCameraFlashOn() {
+        FireActions.toggleCameraFlashOn();
+    }
+     public static void toggleCameraFlashOff() {
+        FireActions.toggleCameraFlashOff();
     }
 
     public static void sendKeycode(int keycode) {
@@ -189,6 +195,28 @@ public class LegionUtils {
             if (service != null) {
                 try {
                     service.toggleCameraFlash();
+                } catch (RemoteException e) {
+                    // do nothing.
+                }
+            }
+        }
+
+        public static void toggleCameraFlashOn(){
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.toggleCameraFlashOn();
+                } catch (RemoteException e) {
+                    // do nothing.
+                }
+            }
+        }
+
+        public static void toggleCameraFlashOff(){
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.toggleCameraFlashOff();
                 } catch (RemoteException e) {
                     // do nothing.
                 }
