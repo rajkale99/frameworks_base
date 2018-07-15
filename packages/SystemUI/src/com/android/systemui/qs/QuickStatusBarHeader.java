@@ -342,6 +342,9 @@ public class QuickStatusBarHeader extends RelativeLayout implements
 
         mAllIndicatorsEnabled = mPrivacyItemController.getAllIndicatorsAvailable();
         mMicCameraIndicatorsEnabled = mPrivacyItemController.getMicCameraAvailable();
+
+        Dependency.get(TunerService.class).addTunable(this,
+                StatusBarIconController.ICON_BLACKLIST);
     }
 
     public QuickQSPanel getHeaderQsPanel() {
@@ -900,5 +903,11 @@ public class QuickStatusBarHeader extends RelativeLayout implements
 
     private boolean getChipEnabled() {
         return mMicCameraIndicatorsEnabled || mAllIndicatorsEnabled;
+    }
+
+    @Override
+    public void onTuningChanged(String key, String newValue) {
+        mClockView.setClockVisibleByUser(!StatusBarIconController.getIconBlacklist(
+                mContext, newValue).contains("clock"));
     }
 }
