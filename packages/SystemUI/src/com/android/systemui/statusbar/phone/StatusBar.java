@@ -857,6 +857,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         DateTimeView.setReceiverHandler(timeTickHandler);
     }
 
+    private boolean mShowNavBar;
+
     @Override
     public void start() {
         mScreenLifecycle.addObserver(mScreenObserver);
@@ -1146,7 +1148,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         mNotificationPanelViewController.setHeadsUpManager(mHeadsUpManager);
         mNotificationLogger.setHeadsUpManager(mHeadsUpManager);
 
-        createNavigationBar(result);
+        updateNavigationBar(true);
 
         if (ENABLE_LOCKSCREEN_WALLPAPER && mWallpaperSupported) {
             mLockscreenWallpaper = mLockscreenWallpaperLazy.get();
@@ -4008,6 +4010,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_TILE_ICON_PRIMARY),
+		    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.FORCE_SHOW_NAVBAR),
                     false, this, UserHandle.USER_ALL);
         }
 
@@ -4029,6 +4034,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
             updateKeyguardStatusSettings();
+            updateNavigationBar(false);
         }
     }
 
@@ -4044,6 +4050,24 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private void updateKeyguardStatusSettings() {
         mNotificationPanelViewController.updateKeyguardStatusSettings();
+    }
+
+    private void updateNavigationBar(boolean init) {
+        boolean showNavBar = LegionUtils.deviceSupportNavigationBar(mContext);
+        if (init) {
+            if (showNavBar) {
+                mNavigationBarController.createNavigationBars(true, null);
+            }
+        } else {
+            if (showNavBar != mShowNavBar) {
+                if (showNavBar) {
+                    mNavigationBarController.createNavigationBars(true, null);
+                } else {
+                    mNavigationBarController.removeNavigationBar(mDisplayId);
+                }
+            }
+        }
+        mShowNavBar = showNavBar;
     }
 
     public int getWakefulnessState() {
