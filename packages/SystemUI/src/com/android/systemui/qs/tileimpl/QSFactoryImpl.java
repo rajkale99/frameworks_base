@@ -240,7 +240,7 @@ public class QSFactoryImpl implements QSFactory {
             case "sleepscreen":
                 return mSleepScreenTileProvider.get();
             case "weather":
-                return mWeatherTile.get();
+                return mWeatherTileProvider.get();
         }
 
         // Custom tiles
