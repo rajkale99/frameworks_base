@@ -3958,6 +3958,11 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             return 0;
         }
 
+        // Disable hw keys in Ambient
+        if (isDozeMode() && (appSwitchKey || homeKey || menuKey || backKey)) {
+            return 0;
+        }
+
         // Pre-basic policy based on interactive and pocket lock state.
         if (mIsDeviceInPocket && (!interactive || mPocketLockShowing)) {
             if (keyCode != KeyEvent.KEYCODE_POWER &&
