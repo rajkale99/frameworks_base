@@ -235,4 +235,6 @@ oneway interface IStatusBar
      * Legion
      */
     void toggleCameraFlash();
+    void toggleCameraFlashState(boolean enable);
+
 }
