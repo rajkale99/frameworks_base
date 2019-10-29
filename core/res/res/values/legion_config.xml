@@ -31,4 +31,9 @@
     <!-- make sure you enable this only if your device supports deep slepp
     with active proximity sensor event listener -->
     <bool name="config_proxiSensorWakupCheck">false</bool>
+
+    <!-- Defines the sysfs attribute path used by pocket bridge
+         to communicate pocket state to the pocket judge kernel driver. -->
+    <string name="config_pocketBridgeSysfsInpocket"></string>
+
 </resources>
