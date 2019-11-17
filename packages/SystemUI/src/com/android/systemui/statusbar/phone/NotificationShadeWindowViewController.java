@@ -107,6 +107,9 @@ public class NotificationShadeWindowViewController {
     private RectF mTempRect = new RectF();
     private boolean mIsTrackingBarGesture = false;
 
+    private boolean mIsMusicTickerTap;
+    private boolean mDoubleTapEnabledNative;
+
     @Inject
     public NotificationShadeWindowViewController(
             InjectionInflationController injectionInflationController,
@@ -164,6 +167,9 @@ public class NotificationShadeWindowViewController {
             AmbientDisplayConfiguration configuration =
                     new AmbientDisplayConfiguration(mView.getContext());
             switch (key) {
+                case Settings.Secure.DOUBLE_TAP_TO_WAKE:
+                    mDoubleTapEnabledNative = TunerService.parseIntegerSwitch(newValue, false);
+                    break;
                 case Settings.Secure.DOZE_DOUBLE_TAP_GESTURE:
                     mDoubleTapEnabled = configuration.doubleTapGestureEnabled(
                             UserHandle.USER_CURRENT);
@@ -173,6 +179,7 @@ public class NotificationShadeWindowViewController {
             }
         };
         mTunerService.addTunable(tunable,
+                Settings.Secure.DOUBLE_TAP_TO_WAKE,
                 Settings.Secure.DOZE_DOUBLE_TAP_GESTURE,
                 Settings.Secure.DOZE_TAP_SCREEN_GESTURE);
 
@@ -190,7 +197,7 @@ public class NotificationShadeWindowViewController {
 
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
-                        if (mDoubleTapEnabled || mSingleTapEnabled) {
+                        if (mDoubleTapEnabled || mSingleTapEnabled || mDoubleTapEnabledNative) {
                             mService.wakeUpIfDozing(
                                     SystemClock.uptimeMillis(), mView, "DOUBLE_TAP");
                             return true;
