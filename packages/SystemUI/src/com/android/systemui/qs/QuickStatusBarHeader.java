@@ -190,6 +190,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     private boolean mHideDragHandle;
 
     private PrivacyItemController mPrivacyItemController;
+    private BatteryMeterView mBatteryMeterView;
 
     private TextView mSystemInfoText;
     private int mSystemInfoMode;
@@ -344,6 +345,11 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mNextAlarmIcon.setImageTintList(ColorStateList.valueOf(fillColor));
         mRingerModeIcon.setImageTintList(ColorStateList.valueOf(fillColor));
 
+        mBatteryMeterView = findViewById(R.id.battery);
+        mBatteryMeterView.setForceShowPercent(true);
+        mBatteryMeterView.setOnClickListener(this);
+        mBatteryMeterView.setPercentShowMode(BatteryMeterView.MODE_ESTIMATE);
+
         mClockView = findViewById(R.id.clock);
         mClockView.setOnClickListener(this);
         mClockView.setClockHideableByUser(false);
@@ -371,6 +377,9 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 QS_SHOW_BRIGHTNESS_BUTTONS,
                 QSFooterImpl.QS_SHOW_DRAG_HANDLE);
         updateSettings();
+
+        mBatteryMeterView.setVisibility(View.VISIBLE);
+        mBatteryRemainingIcon.setVisibility(View.GONE);
     }
 
     private List<String> getIgnoredIconSlots() {
@@ -512,6 +521,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         updateResources();
+        mBatteryMeterView.useWallpaperTextColor(shouldUseWallpaperTextColor);
     }
 
     @Override
@@ -904,6 +914,9 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 Settings.System.putIntForUser(resolver,
                         Settings.System.SCREEN_BRIGHTNESS, math, UserHandle.USER_CURRENT);
             }
+        } else if (v == mBatteryRemainingIcon || v == mBatteryMeterView) {
+            mActivityStarter.postStartActivityDismissingKeyguard(new Intent(
+                Intent.ACTION_POWER_USAGE_SUMMARY), 0);
         }
     }
 
@@ -948,6 +961,11 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         if(mSystemInfoText != null &&  mSystemInfoIcon != null) {
             updateSystemInfoText();
         }
+
+
+        // Use SystemUI context to get battery meter colors, and let it use the default tint (white)
+        mBatteryMeterView.setColorsFromContext(mHost.getContext());
+        mBatteryMeterView.onDarkChanged(new Rect(), 0, DarkIconDispatcher.DEFAULT_ICON_TINT);
     }
 
     public void setCallback(Callback qsPanelCallback) {
