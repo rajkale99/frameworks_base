@@ -4796,14 +4796,6 @@ public final class Settings {
         public static final String EGG_MODE = "egg_mode";
 
         /**
-         * Setting to determine whether or not to show the battery percentage in the status bar.
-         *    0 - Don't show percentage
-         *    1 - Show percentage
-         * @hide
-         */
-        public static final String SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
-
-        /**
          * The time in ms to keep the button backlight on after pressing a button.
          * A value of 0 will keep the buttons on for as long as the screen is on.
          * @hide
@@ -5559,6 +5551,11 @@ public final class Settings {
         public static final String QS_PANEL_BG_ALPHA = "qs_panel_bg_alpha";
 
         /**
+         * @hide
+         */
+        public static final String QS_NEW_BG_ENABLED = "qs_new_bg_enabled";
+
+        /**
          * Setting to determine whether or not to show the battery percentage in the qs status bar header.
          *    0 - Show remaining time
          *    1 - Show percentage
@@ -5566,10 +5563,27 @@ public final class Settings {
          */
         public static final String QS_SHOW_BATTERY_PERCENT = "qs_header_show_battery_percent";
 
-        /**
+	/**
+         * Battery style
          * @hide
          */
-        public static final String QS_NEW_BG_ENABLED = "qs_new_bg_enabled";
+        public static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
+
+        /**
+          * Statusbar Battery %
+          * 0: Hide the battery percentage
+          * 1: Display the battery percentage inside the icon
+          * 2: Display the battery percentage next to Icon
+          * @hide
+          */
+        public static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
+
+        /**
+         * IMPORTANT: If you add a new public settings you also have to add it to
+         * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
+         * it to PRIVATE_SETTINGS below. Also add a validator that can validate
+         * the setting value. See an example above.
+         */
 
 	/**
 	* @hide
@@ -5696,7 +5710,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(POINTER_SPEED);
             PRIVATE_SETTINGS.add(LOCK_TO_APP_ENABLED);
             PRIVATE_SETTINGS.add(EGG_MODE);
-            PRIVATE_SETTINGS.add(SHOW_BATTERY_PERCENT);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
             PRIVATE_SETTINGS.add(DEVICE_PROXI_CHECK_ENABLED);
             PRIVATE_SETTINGS.add(TORCH_LONG_PRESS_POWER_GESTURE);
