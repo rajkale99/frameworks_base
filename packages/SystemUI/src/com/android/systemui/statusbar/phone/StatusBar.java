@@ -104,6 +104,7 @@ import android.os.UserHandle;
 import android.os.UserManager;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import com.android.systemui.qs.QuickStatusBarHeader;
 import android.provider.Settings;
 import android.service.dreams.DreamService;
 import android.service.dreams.IDreamManager;
@@ -442,6 +443,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     // settings
     private QSPanel mQSPanel;
+    private QuickStatusBarHeader mQuickStatusBarHeader;
 
     KeyguardIndicationController mKeyguardIndicationController;
 
@@ -4270,10 +4272,6 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     };
 
-    public void updateQSDataUsageInfo() {
-        DataUsageView.updateUsage();
-    }
-
     private LegionSettingsObserver mLegionSettingsObserver = new LegionSettingsObserver(mHandler);
     private class LegionSettingsObserver extends ContentObserver {
         LegionSettingsObserver(Handler handler) {
@@ -4327,6 +4325,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                     false, this, UserHandle.USER_ALL);
 			resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_TILE_TITLE_VISIBILITY),
+                    false, this, UserHandle.USER_ALL);
+			resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_DATAUSAGE),
                     false, this, UserHandle.USER_ALL);
         }
 
@@ -4409,6 +4410,12 @@ public class StatusBar extends SystemUI implements DemoMode,
             }
         }
         mShowNavBar = showNavBar;
+    }
+	
+	public void updateDataUsageImage() {
+        if (mQuickStatusBarHeader != null) {
+            mQuickStatusBarHeader.updateDataUsageImage();
+        }
     }
 
     public int getWakefulnessState() {

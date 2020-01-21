@@ -144,4 +144,6 @@
     <string name="quick_settings_dc_brightness_mode">Brightness mode</string>
     <string name="quick_settings_dc_full_auto">Auto mode</string>
 
+    <!-- Daily data usage -->
+    <string name="daily_data_usage_title">Today\'s usage</string>
 </resources>
