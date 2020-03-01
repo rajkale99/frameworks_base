@@ -191,6 +191,10 @@ public class LegionUtils {
         FireActions.toggleCameraFlash();
     }
 
+    public static void killForegroundApp() {
+        FireActions.killForegroundApp();
+    }
+
 	public static void launchCamera(Context context) {
         Intent intent = new Intent(MediaStore.INTENT_ACTION_STILL_IMAGE_CAMERA_SECURE);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -253,6 +257,17 @@ public class LegionUtils {
                             ServiceManager.getService("statusbar"));
                 }
                 return mStatusBarService;
+            }
+        }
+
+        public static void killForegroundApp() {
+            IStatusBarService service = getStatusBarService();
+            if (service != null) {
+                try {
+                    service.killForegroundApp();
+                } catch (RemoteException e) {
+                    // do nothing.
+                }
             }
         }
 
