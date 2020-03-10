@@ -47,6 +47,16 @@
         android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Clock"
         systemui:showDark="false" />
 
+    <LinearLayout
+        android:id="@+id/daily_data_usage_layout"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_marginStart="4dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/data_usage_padding_start"
+        android:gravity="center_vertical|end"
+        android:clipChildren="false" >
+        </LinearLayout>
     </LinearLayout>
 
     <android.widget.Space
