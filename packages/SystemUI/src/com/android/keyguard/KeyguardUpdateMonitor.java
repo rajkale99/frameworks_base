@@ -291,7 +291,8 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
     private boolean mLockIconPressed;
     private int mActiveMobileDataSubscription = SubscriptionManager.INVALID_SUBSCRIPTION_ID;
     private final Executor mBackgroundExecutor;
-    private final boolean mFaceAuthOnlyOnSecurityView;
+
+    private final boolean mFaceAuthOnSecurityView;
     private boolean mBouncerFullyShown;
 
     // Face unlock
@@ -309,6 +310,8 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
     private int mHardwareFaceUnavailableRetryCount = 0;
     private static final int HAL_ERROR_RETRY_TIMEOUT = 500; // ms
     private static final int HAL_ERROR_RETRY_MAX = 10;
+
+    private boolean mKeyguardReset = false;
 
     private final Runnable mCancelNotReceived = new Runnable() {
         @Override
@@ -1614,8 +1617,8 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
         mSubscriptionManager = SubscriptionManager.from(context);
         mDeviceProvisioned = isDeviceProvisionedInSettingsDb();
         mStrongAuthTracker = new StrongAuthTracker(context, this::notifyStrongAuthStateChanged);
-        mFaceAuthOnlyOnSecurityView = mContext.getResources().getBoolean(
-                com.android.internal.R.bool.config_faceAuthOnlyOnSecurityView);
+        mFaceAuthOnSecurityView = mContext.getResources().getBoolean(
+                com.android.internal.R.bool.config_faceAuthOnSecurityView);
         mBackgroundExecutor = backgroundExecutor;
         mBroadcastDispatcher = broadcastDispatcher;
         mRingerModeTracker = ringerModeTracker;
@@ -2009,6 +2012,12 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
      * If face auth is allows to scan on this exact moment.
      */
     public boolean shouldListenForFace() {
+        if (mFaceAuthOnSecurityView && mKeyguardReset){
+            mKeyguardReset = false;
+            return false;
+        }
+
+
         final boolean statusBarShadeLocked =
                 mStatusBarStateController.getState() == StatusBarState.SHADE_LOCKED;
         boolean awakeKeyguard = mKeyguardIsVisible && mDeviceInteractive && !mGoingToSleep
@@ -2035,7 +2044,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
                 && !isLockDown;
 
         boolean unlockPossible = true;
-        if ((!mBouncer || !awakeKeyguard) && mFaceAuthOnlyOnSecurityView){
+        if ((!mBouncer || !awakeKeyguard) && isFaceAuthOnlyOnSecurityView()){
             unlockPossible = false;
         }
 
@@ -2049,7 +2058,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
                 && strongAuthAllowsScanning && mIsPrimaryUser
                 && !mSecureCameraLaunched && !mIsDeviceInPocket && unlockPossible;
 
-        if (shouldListen && mFaceAuthOnlyOnSecurityView && !mBouncerFullyShown){
+        if (shouldListen && mFaceAuthOnSecurityView  && !mBouncerFullyShown){
             shouldListen = false;
         }
 
@@ -2081,7 +2090,7 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
     public void onKeyguardBouncerFullyShown(boolean fullyShow) {
         if (mBouncerFullyShown != fullyShow){
             mBouncerFullyShown = fullyShow;
-            if (mFaceAuthOnlyOnSecurityView){
+            if (mFaceAuthOnSecurityView){
                 updateFaceListeningState();
             }
         }
@@ -2227,6 +2236,11 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
         if (mFaceRunningState == BIOMETRIC_STATE_CANCELLING_RESTARTING) {
             setFaceRunningState(BIOMETRIC_STATE_CANCELLING);
         }
+    }
+
+    private boolean isFaceAuthOnlyOnSecurityView() {
+        return Settings.Secure.getInt(mContext.getContentResolver(),
+                Settings.Secure.FACE_UNLOCK_ALWAYS_REQUIRE_SWIPE, mFaceAuthOnSecurityView ? 1 : 0) != 0;
     }
 
     private boolean isDeviceProvisionedInSettingsDb() {
@@ -2570,6 +2584,9 @@ public class KeyguardUpdateMonitor implements TrustManager.TrustListener, Dumpab
         mBouncerFullyShown = false;
         updateBiometricListeningState();
         mNeedsSlowUnlockTransition = resolveNeedsSlowUnlockTransition();
+        if (mFaceAuthOnSecurityView){
+            mKeyguardReset = true;
+        }
     }
 
     private boolean resolveNeedsSlowUnlockTransition() {

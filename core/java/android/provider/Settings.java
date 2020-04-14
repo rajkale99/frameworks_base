@@ -10113,12 +10113,19 @@ public final class Settings {
          */
         public static final String WINDOW_MAGNIFICATION = "window_magnification";
 
-	/*
+	/**
          * Hide lockscreen shortcuts on secure lock screens
          *
          * @hide
          */
         public static final String HIDE_LOCK_SHORTCUTS = "hide_lock_shortcuts";
+
+
+        /**
+         * Whether face unlock is allowed only on security view.
+         * @hide
+         */
+        public static final String FACE_UNLOCK_ALWAYS_REQUIRE_SWIPE = "face_unlock_always_require_swipe";
 
         /**
          * Controls magnification mode when magnification is enabled via a system-wide
