@@ -115,6 +115,8 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     public static final int STYLE_CLOCK_RIGHT = 2;
 
     private int mClockFontStyle = FONT_NORMAL;
+    private int mQsClockFontStyle = FONT_MEDIUM;
+
     public static final int FONT_NORMAL = 0;
     public static final int FONT_ITALIC = 1;
     public static final int FONT_BOLD = 2;
@@ -146,6 +148,11 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     public static final int GOOGLESANS = 28;
     public static final int NEONEON = 29;
     public static final int THEMEABLE = 30;
+    public static final int SAMSUNG = 31;
+    public static final int MEXCELLENT = 32;
+    public static final int BURNSTOWN = 33;
+    public static final int DUMBLEDOR = 34;
+    public static final int PHANTOMBOLD = 35;
     public int DEFAULT_CLOCK_SIZE = 14;
     public int DEFAULT_CLOCK_COLOR = 0xffffffff;
 
@@ -157,6 +164,7 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
     protected boolean mShowClock = true;
     private int mClockColor = 0xffffffff;
     private int mClockSize = 14;
+    private int mClockSizeQsHeader = 14;
     private int mAmPmStyle;
     private final boolean mShowDark;
     protected boolean mQsHeader;
@@ -213,7 +221,13 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
                     Settings.System.STATUS_BAR_CLOCK_SIZE),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_HEADER_CLOCK_FONT_STYLE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_CLOCK_FONT_STYLE),
+                    false, this, UserHandle.USER_ALL);
+	    resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_HEADER_CLOCK_SIZE),
                     false, this, UserHandle.USER_ALL);
             updateSettings();
         }
@@ -749,7 +763,14 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
         mClockSize = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK_SIZE, DEFAULT_CLOCK_SIZE,
                 UserHandle.USER_CURRENT);
+	mClockSizeQsHeader = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.QS_HEADER_CLOCK_SIZE, DEFAULT_CLOCK_SIZE,
+        UserHandle.USER_CURRENT);
+	if(mQsHeader) {
+            setTextSize(mClockSizeQsHeader);
+        } else {
             setTextSize(mClockSize);
+	}
             updateClock();
     }
 
@@ -769,7 +790,14 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
         mClockFontStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.STATUS_BAR_CLOCK_FONT_STYLE, FONT_NORMAL,
 		UserHandle.USER_CURRENT);
-        getClockFontStyle(mClockFontStyle);
+        mQsClockFontStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.QS_HEADER_CLOCK_FONT_STYLE, FONT_MEDIUM,
+                UserHandle.USER_CURRENT);
+        if(mQsHeader) {
+            getClockFontStyle(mQsClockFontStyle);
+        } else {
+            getClockFontStyle(mClockFontStyle);
+        }
         updateClock();
     }
 
@@ -868,6 +896,21 @@ public class Clock extends TextView implements DemoMode, CommandQueue.Callbacks,
                 break;
             case THEMEABLE:
                 setTypeface(Typeface.create("themeable-sys", Typeface.NORMAL));
+                break;
+            case SAMSUNG:
+                setTypeface(Typeface.create("samsung-sys", Typeface.NORMAL));
+                break;
+            case MEXCELLENT:
+                setTypeface(Typeface.create("mexcellent-sys", Typeface.NORMAL));
+                break;
+            case BURNSTOWN:
+                setTypeface(Typeface.create("burnstown-sys", Typeface.NORMAL));
+                break;
+            case DUMBLEDOR:
+                setTypeface(Typeface.create("dumbledor-sys", Typeface.NORMAL));
+                break;
+            case PHANTOMBOLD:
+                setTypeface(Typeface.create("phantombold-sys", Typeface.NORMAL));
                 break;
         }
     }

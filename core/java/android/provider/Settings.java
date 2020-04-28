@@ -5218,6 +5218,18 @@ public final class Settings {
         public static final Validator SHOW_VOWIFI_ICON_VALIDATOR = BOOLEAN_VALIDATOR;
 
 	/**
+         * Clock font style  QS
+         * @hide
+         */
+        public static final String QS_HEADER_CLOCK_FONT_STYLE = "qs_header_clock_font_style";
+
+	/**
+         * Clock font size QS
+         * @hide
+         */
+        public static final String QS_HEADER_CLOCK_SIZE = "qs_header_clock_size";
+
+	/**
 	 * Whether to display the power menu screenshot option on a secured lockscreen
          *
          * @hide
