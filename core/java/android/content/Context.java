@@ -5163,6 +5163,16 @@ public abstract class Context {
     @TestApi
     public static final String DREAM_SERVICE = "dream";
 
+	    /**
+     * Use with {@link #getSystemService} to retrieve a
+     * {@link android.app.AppLockManager} for accessing and setting locked apps state.
+     *
+     * @hide
+     * @see #getSystemService
+     * @see android.app.AppLockManager
+     */
+    public static final String APPLOCK_SERVICE = "applock";
+
     /**
      * Use with {@link #getSystemService} to retrieve a
      * {@link android.os.PocketManager} for accessing and listening to device pocket state.
