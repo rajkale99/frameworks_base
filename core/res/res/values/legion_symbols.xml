@@ -205,7 +205,4 @@
   <!-- Enable face auth when swiping security view -->
   <java-symbol type="bool" name="config_faceAuthOnSecurityView" />
 
-    <!-- Light / Regular style fonts -->
-    <java-symbol type="string" name="config_lightFontFamily" />
-    <java-symbol type="string" name="config_regularFontFamily" />
 </resources>
