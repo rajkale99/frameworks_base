@@ -323,8 +323,9 @@ public class QSFooterImpl extends FrameLayout implements QSFooter,
             mBrightnessMirrorController.addCallback(this);
         }
         /*mContext.getContentResolver().registerContentObserver(
-                Settings.Global.getUriFor(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED),>
+                Settings.Global.getUriFor(Settings.Global.DEVELOPMENT_SETTINGS_ENABLED), false,
                 mDeveloperSettingsObserver, UserHandle.USER_ALL);*/
+    }
 
     @Override
     @VisibleForTesting
