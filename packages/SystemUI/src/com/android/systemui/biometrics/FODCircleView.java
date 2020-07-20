@@ -261,7 +261,7 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         mParams.format = PixelFormat.TRANSLUCENT;
 
         mParams.packageName = "android";
-        mParams.type = WindowManager.LayoutParams.TYPE_DISPLAY_OVERLAY;
+        mParams.type = WindowManager.LayoutParams.TYPE_BOOT_PROGRESS;
         mParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
                 WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mParams.gravity = Gravity.TOP | Gravity.LEFT;
@@ -412,6 +412,17 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
     }
 
     @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+
+        if (mIsCircleShowing) {
+            dispatchPress();
+        } else {
+            dispatchRelease();
+        }
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getAxisValue(MotionEvent.AXIS_X);
         float y = event.getAxisValue(MotionEvent.AXIS_Y);
@@ -505,7 +516,7 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         }
 
         setDim(true);
-        dispatchPress();
+        updateAlpha();
 
         setFODPressedState();
         updatePosition();
@@ -520,7 +531,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         updateIconDim();
         invalidate();
 
-        dispatchRelease();
         setDim(false);
 
         setKeepScreenOn(false);
