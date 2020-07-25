@@ -37,6 +37,7 @@ import com.android.systemui.qs.tiles.CaffeineTile;
 import com.android.systemui.qs.tiles.ColorInversionTile;
 import com.android.systemui.qs.tiles.DataSaverTile;
 import com.android.systemui.qs.tiles.DataSwitchTile;
+import com.android.systemui.qs.tiles.DcDimmingTile;
 import com.android.systemui.qs.tiles.DndTile;
 import com.android.systemui.qs.tiles.FlashlightTile;
 import com.android.systemui.qs.tiles.HeadsUpTile;
@@ -105,6 +106,7 @@ public class QSFactoryImpl implements QSFactory {
     private final Provider<RebootTile> mRebootTileProvider;
     private final Provider<HeadsUpTile> mHeadsUpTileProvider;
     private final Lazy<QSHost> mQsHostLazy;
+    private final Provider<DcDimmingTile> mDcDimmingTileProvider;
 
     @Inject
     public QSFactoryImpl(Lazy<QSHost> qsHostLazy,
@@ -140,6 +142,7 @@ public class QSFactoryImpl implements QSFactory {
             Provider<SleepScreenTile> sleepScreenTileProvider,
             Provider<WeatherTile> weatherTileProvider,
             Provider<RebootTile> rebootTileProvider,
+            Provider<DcDimmingTile> dcDimTileProvider,
             Provider<HeadsUpTile> headsUpTileProvider) {
         mQsHostLazy = qsHostLazy;
         mWifiTileProvider = wifiTileProvider;
@@ -174,6 +177,7 @@ public class QSFactoryImpl implements QSFactory {
         mSleepScreenTileProvider = sleepScreenTileProvider;
         mWeatherTileProvider = weatherTileProvider;
         mRebootTileProvider = rebootTileProvider;
+        mDcDimmingTileProvider = dcDimTileProvider;
         mHeadsUpTileProvider = headsUpTileProvider;
     }
 
@@ -252,6 +256,8 @@ public class QSFactoryImpl implements QSFactory {
                 return mRebootTileProvider.get();
             case "heads_up":
                 return mHeadsUpTileProvider.get();
+            case "dc_dimming":
+                return mDcDimmingTileProvider.get();
         }
 
         // Custom tiles
@@ -283,3 +289,4 @@ public class QSFactoryImpl implements QSFactory {
         }
     }
 }
+
