@@ -4876,7 +4876,7 @@ public final class Settings {
          * Whether the phone vibrates on call waiting
          * @hide
          */
-        public static final String SHOW_LTE_FOURGEE = "show_lte_fourgee";
+        public static final String SHOW_FOURG_ICON = "show_fourg_icon";
         /**
          * Whether to show the battery info on the lockscreen while charging
          * @hide

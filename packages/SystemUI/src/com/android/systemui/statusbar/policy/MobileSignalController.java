@@ -109,7 +109,7 @@ public class MobileSignalController extends SignalController<
     private int mCallState = TelephonyManager.CALL_STATE_IDLE;
 
     // Show lte/4g switch
-    private boolean mShowLteFourGee;
+    private boolean mShow4gForLte;
     private boolean mDataDisabledIcon;
 
     // TODO: Reduce number of vars passed in, if we have the NetworkController, probably don't
@@ -191,7 +191,7 @@ public class MobileSignalController extends SignalController<
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
 	    resolver.registerContentObserver(Settings.System.getUriFor(
-	    Settings.System.SHOW_LTE_FOURGEE),
+	    Settings.System.SHOW_FOURG_ICON),
 	    false, this, UserHandle.USER_ALL);
         }
 
@@ -199,10 +199,10 @@ public class MobileSignalController extends SignalController<
          public void onChange(boolean selfChange, Uri uri) {
 	    super.onChange(selfChange, uri);
 	    if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.SHOW_LTE_FOURGEE))) {
+                    Settings.System.SHOW_FOURG_ICON))) {
 		    mShowLteFourGee = Settings.System.getIntForUser(
 			mContext.getContentResolver(),
-			Settings.System.SHOW_LTE_FOURGEE,
+			Settings.System.SHOW_FOURG_ICON,
 			0, UserHandle.USER_CURRENT) == 1;
 		}
 		mapIconSets();
@@ -334,8 +334,7 @@ public class MobileSignalController extends SignalController<
         mNetworkToIconLookup.put(TelephonyManager.NETWORK_TYPE_HSPA, hGroup);
         mNetworkToIconLookup.put(TelephonyManager.NETWORK_TYPE_HSPAP, hPlusGroup);
 
-        if (Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.SHOW_LTE_FOURGEE, 0, UserHandle.USER_CURRENT) == 1) {
+        if (mShow4gForLte) {
             mNetworkToIconLookup.put(TelephonyManager.NETWORK_TYPE_LTE, TelephonyIcons.FOUR_G);
             if (mConfig.hideLtePlus) {
                 mNetworkToIconLookup.put(TelephonyManager.NETWORK_TYPE_LTE_CA,
