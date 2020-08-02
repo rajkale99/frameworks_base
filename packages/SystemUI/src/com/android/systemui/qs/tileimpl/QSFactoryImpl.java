@@ -122,7 +122,7 @@ public class QSFactoryImpl implements QSFactory {
             Provider<DataSwitchTile> dataSwitchTileProvider,
             Provider<ScreenshotTile> screenshotTileProvider,
             Provider<RebootTile> rebootTileProvider,
-            Provider<CPUInfoTile> cpuInfoTileProvider.
+            Provider<CPUInfoTile> cpuInfoTileProvider,
             Provider<LteTile> lteTileProvider) {
         mWifiTileProvider = wifiTileProvider;
         mBluetoothTileProvider = bluetoothTileProvider;

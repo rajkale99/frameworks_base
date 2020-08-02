@@ -26,9 +26,9 @@ import android.graphics.drawable.Drawable;
 import android.net.NetworkCapabilities;
 import android.net.Uri;
 import android.os.Handler;
-import android.os.UserHandle;
 import android.os.Looper;
 import android.os.Message;
+import android.os.UserHandle;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.telephony.NetworkRegistrationInfo;
@@ -55,13 +55,10 @@ import com.android.settingslib.Utils;
 import com.android.settingslib.graph.SignalDrawable;
 import com.android.settingslib.net.SignalStrengthUtil;
 import com.android.systemui.R;
-import com.android.systemui.Dependency;
 import com.android.systemui.statusbar.policy.NetworkController.IconState;
 import com.android.systemui.statusbar.policy.NetworkController.SignalCallback;
 import com.android.systemui.statusbar.policy.NetworkControllerImpl.Config;
 import com.android.systemui.statusbar.policy.NetworkControllerImpl.SubscriptionDefaults;
-import com.android.systemui.tuner.TunerService;
-
 
 import java.io.PrintWriter;
 import java.util.BitSet;
@@ -71,10 +68,11 @@ import java.util.regex.Pattern;
 
 
 public class MobileSignalController extends SignalController<
-    // The message to display Nr5G icon gracfully by CarrierConfig timeout
-        MobileSignalController.MobileState, MobileSignalController.MobileIconGroup> implements TunerService.Tunable {
+        MobileSignalController.MobileState, MobileSignalController.MobileIconGroup> {
 
+    // The message to display Nr5G icon gracfully by CarrierConfig timeout
     private static final int MSG_DISPLAY_GRACE = 1;
+
     private final TelephonyManager mPhone;
     private final SubscriptionDefaults mDefaults;
     private final String mNetworkNameDefault;
@@ -109,9 +107,7 @@ public class MobileSignalController extends SignalController<
     private ImsManager.Connector mImsManagerConnector;
     private int mCallState = TelephonyManager.CALL_STATE_IDLE;
 
-    // Show lte/4g switch
     private boolean mShow4gForLte;
-    private boolean mDataDisabledIcon;
 
     // Volte Icon
     private boolean mVoLTEicon;
@@ -179,7 +175,6 @@ public class MobileSignalController extends SignalController<
                 updateTelephony();
             }
         };
-        Dependency.get(TunerService.class).addTunable(this, "data_disabled");
 
         mDisplayGraceHandler = new Handler(receiverLooper) {
             @Override
@@ -191,12 +186,12 @@ public class MobileSignalController extends SignalController<
             }
         };
 
-	Handler mHandler = new Handler();
+        Handler mHandler = new Handler();
         SettingsObserver settingsObserver = new SettingsObserver(mHandler);
         settingsObserver.observe();
     }
 
-    class SettingsObserver extends ContentObserver {
+     class SettingsObserver extends ContentObserver {
          SettingsObserver(Handler handler) {
              super(handler);
          }
@@ -220,18 +215,12 @@ public class MobileSignalController extends SignalController<
             updateSettings();
         }
 
+         /*
+          *  @hide
+          */
          @Override
-         public void onChange(boolean selfChange, Uri uri) {
-	    super.onChange(selfChange, uri);
-	    if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.SHOW_FOURG_ICON))) {
-		    mShowLteFourGee = Settings.System.getIntForUser(
-			mContext.getContentResolver(),
-			Settings.System.SHOW_FOURG_ICON,
-			0, UserHandle.USER_CURRENT) == 1;
-		}
-		mapIconSets();
-		updateTelephony();
+         public void onChange(boolean selfChange) {
+             updateSettings();
          }
      }
 
@@ -418,7 +407,8 @@ public class MobileSignalController extends SignalController<
             }
             boolean dataDisabled = mCurrentState.userSetup
                     && (mCurrentState.iconGroup == TelephonyIcons.DATA_DISABLED
-                    || (mCurrentState.iconGroup == TelephonyIcons.NOT_DEFAULT_DATA));
+                    || (mCurrentState.iconGroup == TelephonyIcons.NOT_DEFAULT_DATA
+                            && mCurrentState.defaultDataOff));
             boolean noInternet = mCurrentState.inetCondition == 0;
             boolean cutOut = dataDisabled || noInternet;
             return SignalDrawable.getState(level, getNumLevels(), cutOut);
@@ -738,7 +728,6 @@ public class MobileSignalController extends SignalController<
         mCurrentState.roaming = isRoaming();
         if (isCarrierNetworkChangeActive()) {
             mCurrentState.iconGroup = TelephonyIcons.CARRIER_NETWORK_CHANGE;
-
         } else if (isDataDisabled() && mDataDisabledIcon/*!mConfig.alwaysShowDataRatIcon*/) {
             if (mSubscriptionInfo.getSubscriptionId()
                     != mDefaults.getDefaultDataSubId()) {

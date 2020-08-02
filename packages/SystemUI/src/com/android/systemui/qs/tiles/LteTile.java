@@ -70,7 +70,7 @@ public class LteTile extends QSTileImpl<BooleanState> {
 
     @Override
     public int getMetricsCategory() {
-        return MetricsEvent.LEGION_SETINGS;
+        return MetricsEvent.LEGION_SETTINGS;
     }
 
     @Override
