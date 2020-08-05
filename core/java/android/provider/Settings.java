@@ -5951,6 +5951,171 @@ public final class Settings {
         public static final String FINGERPRINT_ERROR_VIB = "fingerprint_error_vib";
 
         /**
+         * Whether to enable Ambient edge light
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT = "pulse_ambient_light";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether to use wallpaper color for Ambient edge light (left)
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_AUTO_COLOR_LEFT = "pulse_ambient_light_auto_color_left";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_AUTO_COLOR_LEFT_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * What color to use for Ambient edge light (left)
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_COLOR_LEFT = "pulse_ambient_light_color_left";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_COLOR_LEFT_VALIDATOR = ANY_STRING_VALIDATOR;
+
+        /**
+         * What duration to use for Ambient edge light (left)
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_LEFT_DURATION = "pulse_ambient_light_left_duration";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_LEFT_DURATION_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
+         * Whether to use wallpaper color for Ambient edge light (right)
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT = "pulse_ambient_light_auto_color_right";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * What color to use for Ambient edge light (right)
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_COLOR_RIGHT = "pulse_ambient_light_color_right";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_COLOR_RIGHT_VALIDATOR = ANY_STRING_VALIDATOR;
+
+        /**
+         * What duration to use for Ambient edge light (right)
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_RIGHT_DURATION = "pulse_ambient_light_right_duration";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_RIGHT_DURATION_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
+         * Whether to enable Ambient Edge lights
+         * @hide
+         */
+        public static final String AMBIENT_NOTIFICATION_LIGHT_ENABLED = "ambient_notification_light_enabled";
+
+        private static final Validator AMBIENT_NOTIFICATION_LIGHT_ENABLED_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether to enable Ambient Edge lights
+         * @hide
+         */
+        public static final String AMBIENT_NOTIFICATION_LIGHT = "ambient_notification_light";
+
+        private static final Validator AMBIENT_NOTIFICATION_LIGHT_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether Ambient Edge lights are activated
+         * @hide
+         */
+        public static final String AMBIENT_NOTIFICATION_LIGHT_ACTIVATED = "ambient_notification_light_activated";
+
+        private static final Validator AMBIENT_NOTIFICATION_LIGHT_ACTIVATED_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * helper setting to contain the current pulse reason so we can check
+         * if it has been triggered from a notification or a gesture
+         * @hide
+         */
+        public static final String PULSE_TRIGGER_REASON = "pulse_trigger_reason";
+
+        /**
+         * Whether hide everything on aod when  ambient lights are enabled
+         * @hide
+         */
+        public static final String AMBIENT_NOTIFICATION_LIGHT_HIDE_AOD = "ambient_notification_light_hide_aod";
+
+        private static final Validator AMBIENT_NOTIFICATION_LIGHT_HIDE_AOD_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Wether to show edge light for all doze events
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL = "pulse_ambient_light_pulse_for_all";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether to use accent color for left pulse
+         * @hide
+         */
+        public static final String AMBIENT_NOTIFICATION_LIGHT_ACCENT_LEFT = "ambient_notification_light_accent_left";
+
+        /** @hide */
+        private static final Validator AMBIENT_NOTIFICATION_LIGHT_ACCENT_LEFT_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Whether to use accent color for right pulse
+         * @hide
+         */
+        public static final String AMBIENT_NOTIFICATION_LIGHT_ACCENT_RIGHT = "ambient_notification_light_accent_right";
+
+        /** @hide */
+        private static final Validator AMBIENT_NOTIFICATION_LIGHT_ACCENT_RIGHT_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Left Ambient Edge Light Repeat Mode
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_REPEAT_MODE_LEFT = "pulse_ambient_light_repeat_mode_left";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_REPEAT_MODE_LEFT_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
+         * Right Ambient Edge Light Repeat Mode
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_REPEAT_MODE_RIGHT = "pulse_ambient_light_repeat_mode_right";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_REPEAT_MODE_RIGHT_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
+         * Whether to repeat edge light pulsing for all doze events
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_REPEAT = "pulse_ambient_light_pulse_for_all_repeat";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_REPEAT_VALIDATOR = BOOLEAN_VALIDATOR;
+
+        /**
+         * Ambient Edge Light Layout
+         * @hide
+         */
+        public static final String PULSE_AMBIENT_LIGHT_LAYOUT = "pulse_ambient_light_layout";
+
+        /** @hide */
+        private static final Validator PULSE_AMBIENT_LIGHT_LAYOUT_VALIDATOR = ANY_INTEGER_VALIDATOR;
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -6041,6 +6206,24 @@ public final class Settings {
             GESTURE_PILL_TOGGLE,
             QS_BLUR,
             QS_BLUR_ALPHA,
+            PULSE_AMBIENT_LIGHT,
+            PULSE_AMBIENT_LIGHT_AUTO_COLOR_LEFT,
+            PULSE_AMBIENT_LIGHT_COLOR_LEFT,
+            PULSE_AMBIENT_LIGHT_LEFT_DURATION,
+            PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT,
+            PULSE_AMBIENT_LIGHT_COLOR_RIGHT,
+            PULSE_AMBIENT_LIGHT_RIGHT_DURATION,
+            AMBIENT_NOTIFICATION_LIGHT,
+            AMBIENT_NOTIFICATION_LIGHT_ACTIVATED,
+            AMBIENT_NOTIFICATION_LIGHT_ENABLED,
+            AMBIENT_NOTIFICATION_LIGHT_HIDE_AOD,
+            PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL,
+            AMBIENT_NOTIFICATION_LIGHT_ACCENT_LEFT,
+            AMBIENT_NOTIFICATION_LIGHT_ACCENT_RIGHT,
+            PULSE_AMBIENT_LIGHT_REPEAT_MODE_LEFT,
+            PULSE_AMBIENT_LIGHT_REPEAT_MODE_RIGHT,
+            PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_REPEAT,
+            PULSE_AMBIENT_LIGHT_LAYOUT,
             QS_BLUR_INTENSITY,
             HIDE_SMART_REPLIES,
             NOTIFICATION_HEADERS,
@@ -6257,6 +6440,21 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_STATE);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_TYPE);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_AUTOHIDE_THRESHOLD);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_AUTO_COLOR_LEFT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_COLOR_LEFT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_LEFT_DURATION);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_COLOR_RIGHT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_RIGHT_DURATION);
+            PRIVATE_SETTINGS.add(AMBIENT_NOTIFICATION_LIGHT_ENABLED);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL);
+            PRIVATE_SETTINGS.add(AMBIENT_NOTIFICATION_LIGHT_ACCENT_LEFT);
+            PRIVATE_SETTINGS.add(AMBIENT_NOTIFICATION_LIGHT_ACCENT_RIGHT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_REPEAT_MODE_LEFT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_REPEAT_MODE_RIGHT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_REPEAT);
+            PRIVATE_SETTINGS.add(PULSE_AMBIENT_LIGHT_LAYOUT);
 	    PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_HIDEARROW);
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_FONT_SIZE);
             PRIVATE_SETTINGS.add(TRANSPARENT_POWER_MENU);
@@ -6405,6 +6603,24 @@ public final class Settings {
             VALIDATORS.put(QS_BLUR_ALPHA, QS_BLUR_ALPHA_VALIDATOR);
             VALIDATORS.put(QS_BLUR_INTENSITY, QS_BLUR_INTENSITY_VALIDATOR);
             VALIDATORS.put(HIDE_SMART_REPLIES, HIDE_SMART_REPLIES_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT, PULSE_AMBIENT_LIGHT_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_AUTO_COLOR_LEFT, PULSE_AMBIENT_LIGHT_AUTO_COLOR_LEFT_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_COLOR_LEFT, PULSE_AMBIENT_LIGHT_COLOR_LEFT_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_LEFT_DURATION, PULSE_AMBIENT_LIGHT_LEFT_DURATION_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT, PULSE_AMBIENT_LIGHT_AUTO_COLOR_RIGHT_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_COLOR_RIGHT, PULSE_AMBIENT_LIGHT_COLOR_RIGHT_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_RIGHT_DURATION, PULSE_AMBIENT_LIGHT_RIGHT_DURATION_VALIDATOR);
+            VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT, AMBIENT_NOTIFICATION_LIGHT_VALIDATOR);
+            VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_ACTIVATED, AMBIENT_NOTIFICATION_LIGHT_ACTIVATED_VALIDATOR);
+            VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_ENABLED, AMBIENT_NOTIFICATION_LIGHT_ENABLED_VALIDATOR);
+            VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_HIDE_AOD, AMBIENT_NOTIFICATION_LIGHT_HIDE_AOD_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL, PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_VALIDATOR);
+            VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_ACCENT_LEFT, AMBIENT_NOTIFICATION_LIGHT_ACCENT_LEFT_VALIDATOR);
+            VALIDATORS.put(AMBIENT_NOTIFICATION_LIGHT_ACCENT_RIGHT, AMBIENT_NOTIFICATION_LIGHT_ACCENT_RIGHT_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_REPEAT_MODE_LEFT, PULSE_AMBIENT_LIGHT_REPEAT_MODE_LEFT_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_REPEAT_MODE_RIGHT, PULSE_AMBIENT_LIGHT_REPEAT_MODE_RIGHT_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_REPEAT, PULSE_AMBIENT_LIGHT_PULSE_FOR_ALL_REPEAT_VALIDATOR);
+            VALIDATORS.put(PULSE_AMBIENT_LIGHT_LAYOUT, PULSE_AMBIENT_LIGHT_LAYOUT_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_HEADERS, NOTIFICATION_HEADERS_VALIDATOR);
             VALIDATORS.put(TORCH_LONG_PRESS_POWER_GESTURE, TORCH_LONG_PRESS_POWER_GESTURE_VALIDATOR);
             VALIDATORS.put(TORCH_LONG_PRESS_POWER_TIMEOUT, TORCH_LONG_PRESS_POWER_TIMEOUT_VALIDATOR);

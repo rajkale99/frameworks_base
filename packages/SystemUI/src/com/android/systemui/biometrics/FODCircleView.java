@@ -43,7 +43,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.UserHandle;
 import android.os.Looper;
-import android.os.PowerManager;
 import android.os.RemoteException;
 import android.provider.Settings;
 import android.view.Display;
@@ -128,11 +127,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
     private LockPatternUtils mLockPatternUtils;
 
-    private Timer mBurnInProtectionTimer;
-
-    private PowerManager mPowerManager;
-    private PowerManager.WakeLock mWakeLock;
-
     private WallpaperManager mWallManager;
     private int iconcolor = 0xFF3980FF;
 
@@ -141,6 +135,8 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
     private int mSelectedIcon;
     private TypedArray mIconStyles;
+
+    private Timer mBurnInProtectionTimer;
 
     private IFingerprintInscreenCallback mFingerprintInscreenCallback =
             new IFingerprintInscreenCallback.Stub() {
@@ -162,14 +158,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         public void onDreamingStateChanged(boolean dreaming) {
             mIsDreaming = dreaming;
             updateAlpha();
-
-            if (dreaming) {
-                mBurnInProtectionTimer = new Timer();
-                mBurnInProtectionTimer.schedule(new BurnInProtectionTask(), 0, 60 * 1000);
-            } else if (mBurnInProtectionTimer != null) {
-                mBurnInProtectionTimer.cancel();
-                updatePosition();
-            }
         }
 
         @Override
@@ -261,7 +249,7 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         mParams.format = PixelFormat.TRANSLUCENT;
 
         mParams.packageName = "android";
-        mParams.type = WindowManager.LayoutParams.TYPE_BOOT_PROGRESS;
+        mParams.type = WindowManager.LayoutParams.TYPE_DISPLAY_OVERLAY;
         mParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE |
                 WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
         mParams.gravity = Gravity.TOP | Gravity.LEFT;
@@ -304,9 +292,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         updateCutoutFlags();
 
         Dependency.get(ConfigurationController.class).addCallback(this);
-        mPowerManager = context.getSystemService(PowerManager.class);
-        mWakeLock = mPowerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
-                FODCircleView.class.getSimpleName());
 
         mFODAnimation = new FODAnimation(context, mPositionX, mPositionY);
     }
@@ -412,17 +397,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
     }
 
     @Override
-    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
-
-        if (mIsCircleShowing) {
-            dispatchPress();
-        } else {
-            dispatchRelease();
-        }
-    }
-
-    @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getAxisValue(MotionEvent.AXIS_X);
         float y = event.getAxisValue(MotionEvent.AXIS_Y);
@@ -511,12 +485,8 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
         setKeepScreenOn(true);
 
-        if (mIsDreaming) {
-            mWakeLock.acquire(300);
-        }
-
         setDim(true);
-        updateAlpha();
+        dispatchPress();
 
         setFODPressedState();
         updatePosition();
@@ -531,6 +501,7 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
         updateIconDim();
         invalidate();
 
+        dispatchRelease();
         setDim(false);
 
         setKeepScreenOn(false);
@@ -724,18 +695,6 @@ public class FODCircleView extends ImageView implements ConfigurationListener {
 
         return false;
     }
-
-    private class BurnInProtectionTask extends TimerTask {
-        @Override
-        public void run() {
-            long now = System.currentTimeMillis() / 1000 / 60;
-            // Let y to be not synchronized with x, so that we get maximum movement
-            mDreamingOffsetY = (int) ((now + mDreamingMaxOffset / 3) % (mDreamingMaxOffset * 2));
-            mDreamingOffsetY -= mDreamingMaxOffset;
-
-            mHandler.post(() -> updatePosition());
-        }
-    };
 
     @Override
     public void onOverlayChanged() {
