@@ -5,7 +5,6 @@
     <dimen name="smartspace_icon_shadow">1dp</dimen>
 
     <dimen name="qs_tile_height_wo_label">48dp</dimen>
-    <dimen name="quick_status_bar_margin">8dp</dimen>
 
     <dimen name="qs_temperatur_icon_size">16sp</dimen>
 
