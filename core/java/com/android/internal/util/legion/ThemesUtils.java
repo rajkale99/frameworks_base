@@ -65,12 +65,6 @@ public class ThemesUtils {
             "com.android.theme.xtendedclear.system",
             "com.android.theme.xtendedclear.systemui",
     };
-    public static final String[] MIZU_THEMES = {
-        "com.android.system.theme.mizu", // 0
-        "com.android.settings.theme.mizu", // 1
-        "com.android.systemui.theme.mizu", // 2
-        "com.android.documentsui.theme.mizu", //4
-    };
 
     // QS header themes
     private static final String[] QS_HEADER_THEMES = {
