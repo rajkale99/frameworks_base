@@ -4349,11 +4349,12 @@ public class StatusBar extends SystemUI implements DemoMode,
          public void update() {
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
-<<<<<<< HEAD
             updateKeyguardStatusSettings();
             updateNavigationBar(false);
             updateChargingAnimation();
             updateQsPanelResources();
+	    updateBrightnessSliderStyle();
+	    updateGModStyle();
        }
     }
 
@@ -4371,6 +4372,10 @@ public class StatusBar extends SystemUI implements DemoMode,
 	public void updateBrightnessSliderStyle() {
          int brighthnessSliderStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
                  Settings.System.BRIGHTNESS_SLIDER_STYLE, 0, mLockscreenUserManager.getCurrentUserId());
+     }
+	 public void updateGModStyle() {
+         int gModStyle = Settings.System.getIntForUser(mContext.getContentResolver(),
+                 Settings.System.UI_STYLE, 0, mLockscreenUserManager.getCurrentUserId());
     }
 
     private void setHeadsUpBlacklist() {
