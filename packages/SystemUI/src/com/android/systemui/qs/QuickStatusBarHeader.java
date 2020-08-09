@@ -527,9 +527,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         int sbHeight = mContext.getResources().getDimensionPixelSize(
                 com.android.internal.R.dimen.status_bar_height);
         int qqsHeight = mContext.getResources().getDimensionPixelSize(
-                R.dimen.qs_quick_header_panel_height)
-                      + mContext.getResources().getDimensionPixelSize(
-                R.dimen.quick_qs_drag_handle_height);
+                R.dimen.qs_quick_header_panel_height);
 
         if (mBrightnessSlider != 0) {
            if (!mHeaderImageEnabled) {
