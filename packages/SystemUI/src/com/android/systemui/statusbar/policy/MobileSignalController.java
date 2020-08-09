@@ -1,4 +1,4 @@
-/*
+w/*
  * Copyright (C) 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -107,8 +107,7 @@ public class MobileSignalController extends SignalController<
     private ImsManager.Connector mImsManagerConnector;
     private int mCallState = TelephonyManager.CALL_STATE_IDLE;
 
-    private boolean mShow4gForLte;
-
+    private boolean mShowLteFourGee;
     // Volte Icon
     private boolean mVoLTEicon;
     // Volte Icon Style
@@ -198,7 +197,7 @@ public class MobileSignalController extends SignalController<
         void observe() {
             ContentResolver resolver = mContext.getContentResolver();
             resolver.registerContentObserver(
-                    Settings.System.getUriFor(Settings.System.SHOW_FOURG_ICON), false,
+                    Settings.System.getUriFor(Settings.System.SHOW_LTE_FOURGEE), false,
                     this, UserHandle.USER_ALL);
             resolver.registerContentObserver(
 	            Settings.System.getUriFor(Settings.System.SHOW_VOLTE_ICON), false,
@@ -215,12 +214,18 @@ public class MobileSignalController extends SignalController<
             updateSettings();
         }
 
-         /*
-          *  @hide
-          */
          @Override
-         public void onChange(boolean selfChange) {
-             updateSettings();
+         public void onChange(boolean selfChange, Uri uri) {
+	    super.onChange(selfChange, uri);
+	    if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.SHOW_LTE_FOURGEE))) {
+		    mShowLteFourGee = Settings.System.getIntForUser(
+			mContext.getContentResolver(),
+			Settings.System.SHOW_LTE_FOURGEE,
+			0, UserHandle.USER_CURRENT) == 1;
+		}
+		mapIconSets();
+		updateTelephony();
          }
      }
 
@@ -228,7 +233,7 @@ public class MobileSignalController extends SignalController<
          ContentResolver resolver = mContext.getContentResolver();
 
         mShow4gForLte = Settings.System.getIntForUser(resolver,
-                Settings.System.SHOW_FOURG_ICON, 0,
+                Settings.System.SHOW_LTE_FOURGEE, 0,
                 UserHandle.USER_CURRENT) == 1;
         mVoLTEicon = Settings.System.getIntForUser(resolver,
                 Settings.System.SHOW_VOLTE_ICON, 1,
@@ -360,7 +365,8 @@ public class MobileSignalController extends SignalController<
         mNetworkToIconLookup.put(TelephonyManager.NETWORK_TYPE_HSPA, hGroup);
         mNetworkToIconLookup.put(TelephonyManager.NETWORK_TYPE_HSPAP, hPlusGroup);
 
-        if (mShow4gForLte) {
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.SHOW_LTE_FOURGEE, 0, UserHandle.USER_CURRENT) == 1) {
             mNetworkToIconLookup.put(TelephonyManager.NETWORK_TYPE_LTE, TelephonyIcons.FOUR_G);
             if (mConfig.hideLtePlus) {
                 mNetworkToIconLookup.put(TelephonyManager.NETWORK_TYPE_LTE_CA,
