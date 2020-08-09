@@ -108,11 +108,5 @@
         </LinearLayout>
 
     </LinearLayout>
-        <com.android.systemui.BatteryMeterView
-            android:id="@+id/battery"
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:paddingStart="6dp"
-            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>
