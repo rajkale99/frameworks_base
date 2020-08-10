@@ -214,6 +214,9 @@ public class MobileSignalController extends SignalController<
             updateSettings();
         }
 
+	/*
+	*  @hide
+	*/
          @Override
          public void onChange(boolean selfChange, Uri uri) {
 	    super.onChange(selfChange, uri);
@@ -226,13 +229,14 @@ public class MobileSignalController extends SignalController<
 		}
 		mapIconSets();
 		updateTelephony();
+		updateSettings();
          }
      }
 
      private void updateSettings() {
          ContentResolver resolver = mContext.getContentResolver();
 
-        mShow4gForLte = Settings.System.getIntForUser(resolver,
+        mShowLteFourGee = Settings.System.getIntForUser(resolver,
                 Settings.System.SHOW_LTE_FOURGEE, 0,
                 UserHandle.USER_CURRENT) == 1;
         mVoLTEicon = Settings.System.getIntForUser(resolver,
