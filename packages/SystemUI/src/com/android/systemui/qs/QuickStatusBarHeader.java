@@ -124,9 +124,11 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     public static final int MAX_TOOLTIP_SHOWN_COUNT = 2;
 
     private static final String QS_SHOW_AUTO_BRIGHTNESS =
-                                Settings.Secure.QS_SHOW_AUTO_BRIGHTNESS;
+            Settings.Secure.QS_SHOW_AUTO_BRIGHTNESS;
     private static final String QS_SHOW_BRIGHTNESS_SLIDER =
-                                Settings.Secure.QS_SHOW_BRIGHTNESS_SLIDER;
+            Settings.Secure.QS_SHOW_BRIGHTNESS_SLIDER;
+    public static final String STATUS_BAR_CUSTOM_HEADER =
+            "system:" + Settings.System.STATUS_BAR_CUSTOM_HEADER;
 
     private final Handler mHandler = new Handler();
     private final NextAlarmController mAlarmController;
@@ -458,11 +460,10 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                     + mContext.getResources().getDimensionPixelSize(
                     R.dimen.qs_tile_margin_top);
         }
-
-		if (mHeaderImageEnabled) {
+        if (mHeaderImageEnabled) {
             qqsHeight += mContext.getResources().getDimensionPixelSize(
                     R.dimen.qs_header_image_offset);
-        }
+      }
         setMinimumHeight(sbHeight + qqsHeight);
     }
 
@@ -623,16 +624,16 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 mHeaderTextContainerView.setVisibility(INVISIBLE);
             }
         }
+        if (mPrivacyChipAlphaAnimator != null) {
+            mPrivacyChip.setExpanded(expansionFraction > 0.5);
+            mPrivacyChipAlphaAnimator.setPosition(keyguardExpansionFraction);
+        }
         if (mIsQuickQsBrightnessEnabled) {
             if (keyguardExpansionFraction > 0) {
                 mQuickQsBrightness.setVisibility(INVISIBLE);
             } else {
                 mQuickQsBrightness.setVisibility(VISIBLE);
             }
-	}
-        if (mPrivacyChipAlphaAnimator != null) {
-            mPrivacyChip.setExpanded(expansionFraction > 0.5);
-            mPrivacyChipAlphaAnimator.setPosition(keyguardExpansionFraction);
         }
         if (expansionFraction < 1 && expansionFraction > 0.99) {
             if (mHeaderQsPanel.switchTileLayout()) {
