@@ -691,8 +691,8 @@ public class ScreenDecorations extends SystemUI implements Tunable,
     }
 
     private boolean hasRoundedCorners() {
-        return mRoundedDefault > 0 || mRoundedDefaultBottom > 0 || mRoundedDefaultTop > 0 ||
-                Secure.getIntForUser(mContext.getContentResolver(), SIZE, 0, UserHandle.USER_CURRENT) != 0;
+        return mRoundedDefault > 0 || mRoundedDefaultBottom > 0 || mRoundedDefaultTop > 0
+                || mIsRoundedCornerMultipleRadius;
     }
 
     private boolean shouldDrawCutout() {
