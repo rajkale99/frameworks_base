@@ -78,9 +78,8 @@
              android:paddingStart="1dp"
              android:paddingEnd="1dp"
              android:singleLine="true"
-             systemui:showDark="false"
+             android:textAppearance="@style/TextAppearance.StatusBar.Clock"
              android:visibility="gone" />
-        </LinearLayout>
 
         <LinearLayout
                 android:id="@+id/system_info_layout"
@@ -105,9 +104,9 @@
                     android:paddingEnd="@dimen/status_bar_clock_end_padding"
                     android:textAppearance="@style/TextAppearance.StatusBar.Clock"
                     android:gravity="center_vertical|end"
-                    systemui:showDark="false"
                     android:visibility="gone"/>
         </LinearLayout>
 
+    </LinearLayout>
     </LinearLayout>
 </LinearLayout>
