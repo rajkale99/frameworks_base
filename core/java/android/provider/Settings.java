@@ -5574,6 +5574,18 @@ public final class Settings {
         public static final String QS_DATAUSAGE = "qs_datausage";
 
         /**
+        * by.tikkiX2
+        * @hide
+        */
+        public static final String QS_PANEL_TYPE_BACKGROUND = "qs_panel_type_background";
+
+        /** @hide */
+        public static final String QS_PANEL_CUSTOM_IMAGE = "qs_panel_custom_image";
+
+        /** @hide */
+        public static final String QS_PANEL_CUSTOM_IMAGE_BLUR = "qs_panel_custom_image_blur";
+
+        /**
          * Whether to change the transparency of the qs panel
          * @hide
          */
@@ -5765,6 +5777,9 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_CITY);
 	    PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_IMAGE);
             PRIVATE_SETTINGS.add(QS_PANEL_BG_ALPHA);
+            PRIVATE_SETTINGS.add(QS_PANEL_TYPE_BACKGROUND);
+            PRIVATE_SETTINGS.add(QS_PANEL_CUSTOM_IMAGE);
+            PRIVATE_SETTINGS.add(QS_PANEL_CUSTOM_IMAGE_BLUR);
         }
 
         /**
