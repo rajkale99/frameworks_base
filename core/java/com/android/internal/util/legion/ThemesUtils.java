@@ -25,9 +25,29 @@ import android.provider.Settings;
 import android.os.RemoteException;
 import android.util.Log;
 
-public class ThemesUtils {
+import static android.os.UserHandle.USER_SYSTEM;
 
-    public static final String TAG = "ThemesUtils";
+import android.app.UiModeManager;
+import android.content.Context;
+import android.content.om.IOverlayManager;
+import android.content.om.OverlayInfo;
+import android.os.RemoteException;
+import android.os.ServiceManager;
+import android.provider.Settings;
+import android.os.RemoteException;
+import android.util.Log;
+public class ThemesUtils {
+	
+	public static final String TAG = "ThemesUtils";
+	
+	public static final String[] BRIGHTNESS_SLIDER_THEMES = {
+            "com.android.systemui.brightness.slider.default",
+            "com.android.systemui.brightness.slider.daniel",
+            "com.android.systemui.brightness.slider.mememini",
+            "com.android.systemui.brightness.slider.memeround",
+            "com.android.systemui.brightness.slider.memeroundstroke",
+            "com.android.systemui.brightness.slider.memestroke",
+    };
 
     public static final String[] SOLARIZED_DARK = {
             "com.android.theme.solarizeddark.system",
@@ -62,14 +82,7 @@ public class ThemesUtils {
             "com.android.theme.xtendedclear.systemui",
     };
 
-    public static final String[] BRIGHTNESS_SLIDER_THEMES = {
-        "com.jrinfected.brightness.a",
-        "com.jrinfected.brightness.b",
-        "com.jrinfected.brightness.c",
-        "com.jrinfected.brightness.d",
-};
-
-public static final String[] PANEL_BG_STYLE = {
+    public static final String[] PANEL_BG_STYLE = {
         "com.jrinfected.panel.batik", // 1
         "com.jrinfected.panel.kece", // 2
         "com.jrinfected.panel.outline", // 3
@@ -83,6 +96,32 @@ public static final String[] PANEL_BG_STYLE = {
         "com.android.system.switch.contained", // 3
         "com.android.system.switch.telegram", // 4
     };
+
+	public static void updateBrightnessSliderStyle(IOverlayManager om, int userId, int brightnessSliderStyle) {
+        if (brightnessSliderStyle == 0) {
+            stockBrightnessSliderStyle(om, userId);
+        } else {
+            try {
+                om.setEnabled(UI_THEMES[brightnessSliderStyle],
+                        true, userId);
+            } catch (RemoteException e) {
+                Log.w(TAG, "Can't change brightness slider theme", e);
+            }
+        }
+    }
+
+    public static void stockBrightnessSliderStyle(IOverlayManager om, int userId) {
+        for (int i = 0; i < UI_THEMES.length; i++) {
+            String brightnessSlidertheme = BRIGHTNESS_SLIDER_THEMES[i];
+            try {
+                om.setEnabled(brightnessSlidertheme,
+                        false /*disable*/, userId);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
 
     public static void updateSwitchStyle(IOverlayManager om, int userId, int switchStyle) {
         if (switchStyle == 0) {
