@@ -40,6 +40,7 @@ import android.widget.TextView.OnEditorActionListener;
 import com.android.internal.widget.LockscreenCredential;
 import com.android.internal.widget.LockPatternUtils.RequestThrottledException;
 import com.android.internal.widget.TextViewInputDisabler;
+import com.android.systemui.volume.SystemUIInterpolators;
 import com.android.systemui.R;
 
 import java.util.List;
@@ -337,7 +338,7 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
                 .alpha(1)
                 .withLayer()
                 .setDuration(300)
-                .setInterpolator(mLinearOutSlowInInterpolator);
+                .setInterpolator(new SystemUIInterpolators.LogDecelerateInterpolator(800f, 2.1f, 0));
     }
 
     @Override
@@ -345,7 +346,7 @@ public class KeyguardPasswordView extends KeyguardAbsKeyInputView
         animate()
                 .alpha(0f)
                 .translationY(mDisappearYTranslation)
-                .setInterpolator(mFastOutLinearInInterpolator)
+                .setInterpolator(new SystemUIInterpolators.LogAccelerateInterpolator(200, 0))
                 .setDuration(100)
                 .withEndAction(finishRunnable);
         return true;
