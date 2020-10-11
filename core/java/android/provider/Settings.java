@@ -4905,6 +4905,12 @@ public final class Settings {
          */
         public static final String VIBRATE_ON_CALLWAITING = "vibrate_on_callwaiting";
 
+        /**
+         * Number of maximum qs rows to show
+         * @hide
+         */
+        public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
+
          /**
          * Whether the phone vibrates on disconnect
          * @hide
