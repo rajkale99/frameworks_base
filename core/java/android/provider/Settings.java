@@ -4888,6 +4888,12 @@ public final class Settings {
         public static final String FORCE_FULLSCREEN_CUTOUT_APPS = "force_full_screen_cutout_apps";
 
         /**
+         * whether to show center notification headers
+         * @hide
+         */
+        public static final String CENTER_NOTIFICATION_HEADERS = "center_notification_headers";
+
+        /**
          * Whether the phone vibrates on call connect
          * @hide
          */
@@ -5669,6 +5675,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(NETWORK_TRAFFIC_LAYOUT);
             PRIVATE_SETTINGS.add(FORCE_SHOW_NAVBAR);
             PRIVATE_SETTINGS.add(BACK_GESTURE_HAPTIC);
+            PRIVATE_SETTINGS.add(CENTER_NOTIFICATION_HEADERS);
         }
 
         /**
