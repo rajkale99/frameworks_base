@@ -5460,33 +5460,11 @@ public final class Settings {
         public static final String NETWORK_TRAFFIC_FONT_STYLE = "network_traffic_font_style";
 
         /**
-         * Whether to show the clock in the right or left position or show it in the center
-         * 0: show the clock in the right position (LTR)
-         * 1: show the clock in the center
-         * 2: show the clock in the left position (LTR)
-         * default: 0
-         *
-         * @hide
-         */
-        public static final String STATUS_BAR_CLOCK = "status_bar_clock";
-
-        /**
          * Whether to control brightness from status bar
          *
          * @hide
          */
         public static final String STATUS_BAR_BRIGHTNESS_CONTROL = "status_bar_brightness_control";
-
-        /**
-         * Display style of AM/PM next to clock in status bar
-         * 0: Normal display (Eclair stock)
-         * 1: Small display (Froyo stock)
-         * 2: No display (Gingerbread/ICS stock)
-         * default: 2
-         *
-         * @hide
-         */
-        public static final String STATUS_BAR_AM_PM = "status_bar_am_pm";
 
         /**
          * Keys we no longer back up under the current schema, but want to continue to
