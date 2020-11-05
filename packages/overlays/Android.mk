@@ -62,8 +62,7 @@ LOCAL_REQUIRED_MODULES := \
 	FontGrandHotelSourceOverlay \
 	FontRedressedSourceOverlay \
 	IconPackCircularAndroidOverlay \
-	IconPackCircularPixelLauncherOverlay \
-	IconPackCircularPixelThemePickerOverlay \
+	IconPackCircularLauncherOverlay \
 	IconPackCircularSettingsOverlay \
 	IconPackCircularSystemUIOverlay \
 	IconPackFilledAndroidOverlay \
@@ -72,8 +71,7 @@ LOCAL_REQUIRED_MODULES := \
 	IconPackFilledSettingsOverlay \
 	IconPackFilledSystemUIOverlay \
 	IconPackRoundedAndroidOverlay \
-	IconPackRoundedPixelLauncherOverlay \
-	IconPackRoundedPixelThemePickerOverlay \
+	IconPackRoundedLauncherOverlay \
 	IconPackRoundedSettingsOverlay \
 	IconPackRoundedSystemUIOverlay \
 	IconPackRoundedThemePickerOverlay \
