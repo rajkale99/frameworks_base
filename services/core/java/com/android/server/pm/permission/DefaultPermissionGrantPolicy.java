@@ -933,6 +933,10 @@ public final class DefaultPermissionGrantPolicy {
         grantSystemFixedPermissionsToSystemPackage(pm, "com.google.android.carriersetup", userId, PHONE_PERMISSIONS,
                 SMS_PERMISSIONS);
 
+        // SafetyHub
+        grantSystemFixedPermissionsToSystemPackage(pm,"com.google.android.apps.safetyhub", userId, SENSORS_PERMISSIONS,
+                CONTACTS_PERMISSIONS, ALWAYS_LOCATION_PERMISSIONS, MICROPHONE_PERMISSIONS, PHONE_PERMISSIONS);
+
         // ThemePicker
         grantSystemFixedPermissionsToSystemPackage(pm,"com.android.wallpaper", userId, STORAGE_PERMISSIONS);
 
