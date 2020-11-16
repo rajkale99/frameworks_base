@@ -281,7 +281,7 @@ public class QSContainerImpl extends FrameLayout {
         for (int i = 0; i < getChildCount(); i++) {
             View view = getChildAt(i);
             if (view == mStatusBarBackground || view == mBackgroundGradient
-                    || view == mQSCustomizer || view == mQSDetail) {
+                    || view == mQSCustomizer) {
                 // Some views are always full width
                 continue;
             }

@@ -91,12 +91,6 @@ public class QSDetail extends LinearLayout {
         for (int i = 0; i < mDetailViews.size(); i++) {
             mDetailViews.valueAt(i).dispatchConfigurationChanged(newConfig);
         }
-
-        // Update top space height in orientation change
-        ViewGroup.MarginLayoutParams params = (MarginLayoutParams) getLayoutParams();
-        params.topMargin = mContext.getResources().getDimensionPixelSize(
-                com.android.internal.R.dimen.quick_qs_offset_height);
-        setLayoutParams(params);
     }
 
     @Override
@@ -113,7 +107,7 @@ public class QSDetail extends LinearLayout {
 
         updateDetailText();
 
-        mClipper = new QSDetailClipper(findViewById(R.id.detail_container));
+        mClipper = new QSDetailClipper(this);
 
         final OnClickListener doneListener = new OnClickListener() {
             @Override
@@ -368,6 +362,7 @@ public class QSDetail extends LinearLayout {
             // Only hide content if still in detail state.
             if (mDetailAdapter != null) {
                 mQsPanel.setGridContentVisibility(false);
+                mHeader.setVisibility(View.INVISIBLE);
                 mFooter.setVisibility(View.INVISIBLE);
             }
             mAnimatingOpen = false;
