@@ -19,11 +19,14 @@ package com.android.systemui.qs;
 import static android.app.StatusBarManager.DISABLE2_QUICK_SETTINGS;
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.ContentResolver;
 import android.content.res.ColorUtils;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
+import android.content.om.IOverlayManager;
+import android.content.om.OverlayInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -46,6 +49,8 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Handler;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.AttributeSet;
@@ -109,19 +114,28 @@ public class QSContainerImpl extends FrameLayout {
     private ImageView mQsBackgroundImage;
     private View mBackgroundGradient;
     private View mStatusBarBackground;
-    private Drawable mQsBackGround;
 
     private int mSideMargins;
     private boolean mQsDisabled;
+
+    private Drawable mQsBackGround;
+    private Drawable mQsBackGroundNew;
+    private boolean mQsBgNewEnabled;
+    private int mQsBackGroundAlpha;
+    private Drawable mQsHeaderBackGround;
+    private boolean mQsBackgroundBlur;
+
+    private boolean mQsBackGroundType;
+    private boolean mQsBackgroundAlpha;
+
+    private int mCurrentColor;
+    private boolean mSetQsFromResources;
+
     private int mContentPaddingStart = -1;
     private int mContentPaddingEnd = -1;
     private boolean mAnimateBottomOnNextLayout;
 
-    private int mQsBackGroundAlpha;
-    private int mCurrentColor;
-    private Drawable mQsHeaderBackGround;
-    private boolean mQsBackgroundBlur;
-    private boolean mQsBackGroundType;
+    private IOverlayManager mOverlayManager;
 
     private Context mContext;
 
@@ -145,6 +159,7 @@ public class QSContainerImpl extends FrameLayout {
         mQSCustomizer = (QSCustomizer) findViewById(R.id.qs_customize);
         mDragHandle = findViewById(R.id.qs_drag_handle_view);
         mBackground = findViewById(R.id.quick_settings_background);
+        mQsBackGroundNew = getContext().getDrawable(R.drawable.qs_background_primary_new);
         mQsBackgroundImage = findViewById(R.id.qs_image_view);
         mStatusBarBackground = findViewById(R.id.quick_settings_status_bar_background);
         mBackgroundGradient = findViewById(R.id.quick_settings_gradient_view);
@@ -208,6 +223,9 @@ public class QSContainerImpl extends FrameLayout {
             resolver.registerContentObserver(Settings.System
                     .getUriFor(Settings.System.QS_PANEL_CUSTOM_IMAGE_BLUR), false,
                     this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_NEW_BG_ENABLED), false, this,
+                    UserHandle.USER_ALL);
         }
 
         @Override
@@ -219,9 +237,13 @@ public class QSContainerImpl extends FrameLayout {
     private void updateSettings() {
         ContentResolver resolver = getContext().getContentResolver();
         String imageUri = Settings.System.getStringForUser(mContext.getContentResolver(),
-                Settings.System.QS_PANEL_CUSTOM_IMAGE, UserHandle.USER_CURRENT);
+                Settings.System.QS_PANEL_CUSTOM_IMAGE,
+                UserHandle.USER_CURRENT);
         mQsBackGroundAlpha = Settings.System.getIntForUser(resolver,
-                Settings.System.QS_PANEL_BG_ALPHA, 255, UserHandle.USER_CURRENT);
+                Settings.System.QS_PANEL_BG_ALPHA, 255,
+                UserHandle.USER_CURRENT);
+        mQsBgNewEnabled = Settings.System.getIntForUser(getContext().getContentResolver(),
+                    Settings.System.QS_NEW_BG_ENABLED, 1, UserHandle.USER_CURRENT) == 1;
         post(new Runnable() {
             public void run() {
                 setQsBackground();
@@ -236,7 +258,6 @@ public class QSContainerImpl extends FrameLayout {
     private void setQsBackground() {
         ContentResolver resolver = getContext().getContentResolver();
         BitmapDrawable currentImage = null;
-        mCurrentColor = Color.WHITE;
         mQsBackGroundType = Settings.System.getIntForUser(resolver,
                     Settings.System.QS_PANEL_TYPE_BACKGROUND, 0, UserHandle.USER_CURRENT) == 1;
         mQsBackgroundBlur = Settings.System.getIntForUser(resolver,
@@ -258,13 +279,36 @@ public class QSContainerImpl extends FrameLayout {
 
             mBackground.setBackground(mQsBackGround);
             mBackground.setClipToOutline(true);
+
         } else {
-            mQsBackGround = getContext().getDrawable(R.drawable.qs_background_primary);
-            mQsHeaderBackGround = getContext().getDrawable(R.drawable.qs_background_primary);
+            if (mSetQsFromResources && !mQsBackGroundType) {
+                if (!mQsBgNewEnabled) {
+                    mQsBackGround = getContext().getDrawable(R.drawable.qs_background_primary);
+                    mQsHeaderBackGround = getContext().getDrawable(R.drawable.qs_background_primary);
+                } else {
+                    mQsBackGroundNew = getContext().getDrawable(R.drawable.qs_background_primary_new);
+                    mQsHeaderBackGround = getContext().getDrawable(R.drawable.qs_background_primary_new);
+                }
+                try {
+                    mOverlayManager.setEnabled("com.android.systemui.qstheme.color",
+                            false, ActivityManager.getCurrentUser());
+                } catch (RemoteException e) {
+                    Log.w("QSContainerImpl", "Can't change qs theme", e);
+                }
+	    }
+
+            if (!mQsBgNewEnabled) {
+                mBackground.setBackground(mQsBackGround);
+            } else {
+                mBackground.setBackground(mQsBackGroundNew);
+            }
         }
-        mBackground.setBackground(mQsBackGround);
-        mQsBackGround.setAlpha(mQsBackGroundAlpha);
         mQsHeaderBackGround.setAlpha(mQsBackGroundAlpha);
+        if (!mQsBgNewEnabled) {
+            mQsBackGround.setAlpha(mQsBackGroundAlpha);
+        } else {
+            mQsBackGroundNew.setAlpha(mQsBackGroundAlpha);
+        }
     }
 
     @Override
@@ -357,6 +401,7 @@ public class QSContainerImpl extends FrameLayout {
                 setQsBackground();
             }
         });
+        mQsBackgroundAlpha = true;
     }
 
     public void saveCustomFileFromString(Uri fileUri, String fileName) {
