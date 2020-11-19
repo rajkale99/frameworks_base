@@ -93,17 +93,9 @@
         android:summary="%s"
         android:entries="@array/clock_options" />
 
-<<<<<<< HEAD:packages/SystemUI/res/xml/status_bar_prefs.xml
     <com.android.systemui.tuner.TunerSwitch
         android:key="low_priority"
         android:title="@string/tuner_low_priority"
         sysui:defValue="false" />
 
 </PreferenceScreen>
-=======
-    <com.android.systemui.tuner.BatteryPreference
-        android:title="@string/battery"
-        android:summary="%s"
-        android:entries="@array/battery_options" />
-</PreferenceScreen>
->>>>>>> parent of eee9b9bb3e2a... Disable tuner pref for battery:packages/SystemUI/res/xml/statusbar_items.xml
