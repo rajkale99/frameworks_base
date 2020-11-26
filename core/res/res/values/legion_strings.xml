@@ -16,4 +16,10 @@
     <!-- Pocket Lock -->
     <string name="pocket_lock_message_long_press">Press and hold power button to unlock</string>
 
+    <!-- Color for the Assistant invocation lights -->
+    <color name="edge_light_blue">#4185f4</color>
+    <color name="edge_light_green">#3aa853</color>
+    <color name="edge_light_red">#ea4234</color>
+    <color name="edge_light_yellow">#fbbc06</color>
+
 </resources>
