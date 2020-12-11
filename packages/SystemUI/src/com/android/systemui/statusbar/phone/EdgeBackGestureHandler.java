@@ -233,6 +233,8 @@ public class EdgeBackGestureHandler extends CurrentUserTracker implements Displa
 
     private int mEdgeHeight;
 
+    private boolean mIsBackGestureArrowEnabled;
+
     private final Vibrator mVibrator;
     // For Tf-Lite model.
     private BackGestureTfClassifierProvider mBackGestureTfClassifierProvider;
@@ -338,6 +340,7 @@ public class EdgeBackGestureHandler extends CurrentUserTracker implements Displa
         mLeftVerticalSwipeAction = mGestureNavigationSettingsObserver.getLeftLSwipeAction();
         mRightVerticalSwipeAction = mGestureNavigationSettingsObserver.getRightLSwipeAction();
         mYDeadzoneDivider = mGestureNavigationSettingsObserver.getDeadZoneMode();
+        mIsBackGestureArrowEnabled = mGestureNavigationSettingsObserver.getBackArrowGesture();
 
         final DisplayMetrics dm = res.getDisplayMetrics();
         final float defaultGestureHeight = res.getDimension(
@@ -754,6 +757,7 @@ public class EdgeBackGestureHandler extends CurrentUserTracker implements Displa
                     && isWithinTouchRegion((int) ev.getX(), (int) ev.getY());
             if (mAllowGesture) {
                 mEdgeBackPlugin.setIsLeftPanel(mIsOnLeftEdge);
+                mEdgeBackPlugin.setBackArrowVisibility(mIsBackGestureArrowEnabled);
                 mEdgeBackPlugin.onMotionEvent(ev);
             }
             if (mLogGesture) {
