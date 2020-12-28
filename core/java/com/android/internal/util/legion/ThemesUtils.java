@@ -62,6 +62,19 @@ public class ThemesUtils {
             "com.android.theme.xtendedclear.systemui",
     };
 
+    public static final String[] BRIGHTNESS_SLIDER_THEMES = {
+        "com.jrinfected.brightness.a",
+        "com.jrinfected.brightness.b",
+        "com.jrinfected.brightness.c",
+        "com.jrinfected.brightness.d",
+};
+
+public static final String[] PANEL_BG_STYLE = {
+        "com.jrinfected.panel.batik", // 1
+        "com.jrinfected.panel.kece", // 2
+        "com.jrinfected.panel.outline", // 3
+};
+
      // Switch themes
     private static final String[] SWITCH_THEMES = {
         "com.android.system.switch.stock", // 0
