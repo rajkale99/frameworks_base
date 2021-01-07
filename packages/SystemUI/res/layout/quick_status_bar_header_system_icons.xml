@@ -101,4 +101,5 @@
                 android:singleLine="true"
                 android:visibility="gone" />
         </LinearLayout>
+
 </LinearLayout>

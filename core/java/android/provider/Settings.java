@@ -9974,7 +9974,7 @@ public final class Settings {
          */
         public static final String POWER_MENU_HIDE_ON_SECURE = "power_menu_hide_on_secure";
 
-	/**
+	    /**
          * Whether the Adaptive connectivity option is enabled.
          *
          * @hide

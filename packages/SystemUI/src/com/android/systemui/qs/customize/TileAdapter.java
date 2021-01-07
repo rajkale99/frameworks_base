@@ -519,6 +519,7 @@ public class TileAdapter extends RecyclerView.Adapter<Holder> implements TileSta
                 mTileView.getIcon().disableAnimation();
                 mTileView.setTag(this);
                 //ViewCompat.setAccessibilityDelegate(mTileView, mAccessibilityDelegate);
+
             }
         }
 

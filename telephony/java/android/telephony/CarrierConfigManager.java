@@ -3905,7 +3905,6 @@ public class CarrierConfigManager {
     public static final String KEY_USE_LOWER_MTU_VALUE_IF_BOTH_RECEIVED =
             "use_lower_mtu_value_if_both_received";
 
-
     /** The default value for every variable. */
     private final static PersistableBundle sDefaults;
 
