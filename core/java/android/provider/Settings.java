@@ -10090,6 +10090,12 @@ public final class Settings {
         public static final String QS_SHOW_BRIGHTNESS_SLIDER =
                 "qs_show_brightness_slider";
 
+	/**
+	* Show B Slider at bottom
+	* @hide
+	*/
+	public static final String QS_BRIGHTNESS_POSITION_BOTTOM = "qs_brightness_position_bottom";
+
         /**
          * Disable power menu on secure lock screens
          *
