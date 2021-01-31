@@ -5584,6 +5584,12 @@ public final class Settings {
          * @hide
          */
         public static final String FOD_ICON = "fod_icon";
+        
+        /**
+         * Screen off fod
+         * @hide
+         */
+        public static final String FOD_GESTURE = "fod_gesture";
 
         /**
          * Whether to enable the pixel navbar animation
