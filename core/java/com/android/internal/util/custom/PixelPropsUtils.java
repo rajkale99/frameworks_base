@@ -68,7 +68,7 @@ public class PixelPropsUtils {
         propsToChange.put("IS_USERDEBUG", false);
         propsToChange.put("IS_USER", true);
         propsToChange.put("TYPE", "user");
-        propsToChange.put("FINGERPRINT", "google/redfin/redfin:11/RQ1A.210105.003/7005429:user/release-keys");
+        propsToChange.put("FINGERPRINT", "google/redfin/redfin:11/RQ1A.210205.004/7038034:user/release-keys");
     }
 
     public static void setProps(String packageName) {
