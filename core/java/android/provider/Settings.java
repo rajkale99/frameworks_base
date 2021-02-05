@@ -10091,6 +10091,12 @@ public final class Settings {
                 "qs_show_brightness_slider";
 
 	/**
+	* @hide
+	*/
+	public static final String QS_SHOW_BRIGHTNESS_SLIDER_EXPANDED =
+		"qs_show_brightness_slider_show_expanded";
+
+	/**
 	* Show B Slider at bottom
 	* @hide
 	*/
