@@ -59,6 +59,20 @@ LOCAL_REQUIRED_MODULES := \
         FontKaiOverlay \
         FontSamOverlay \
         FontVictorOverlay \
+        IconPackVictorLauncherOverlay \
+        IconPackVictorSettingsOverlay \
+        IconPackVictorSystemUIOverlay \
+        IconPackVictorThemePickerOverlay \
+        IconPackSamAndroidOverlay \
+        IconPackSamLauncherOverlay \
+        IconPackSamSettingsOverlay \
+        IconPackSamSystemUIOverlay \
+        IconPackSamThemePickerOverlay \
+        IconPackKaiAndroidOverlay \
+        IconPackKaiLauncherOverlay \
+        IconPackKaiSettingsOverlay \
+        IconPackKaiSystemUIOverlay \
+        IconPackKaiThemePickerOverlay \
 	IconPackCircularAndroidOverlay \
 	IconPackCircularPixelLauncherOverlay \
 	IconPackCircularPixelThemePickerOverlay \
