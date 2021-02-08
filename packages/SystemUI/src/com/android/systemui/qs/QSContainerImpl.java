@@ -266,7 +266,7 @@ public class QSContainerImpl extends FrameLayout {
         }
         if (currentImage != null && mQsBackGroundType) {
             int width = mQSPanel.getWidth();
-            int height = mQSPanel.getHeight() + mDragHandle.getHeight();
+            int height = mQSPanel.getHeight();
 
             Bitmap bitmap = mQsBackgroundBlur ? ImageHelper.getBlurredImage(mContext, currentImage.getBitmap()) : currentImage.getBitmap();
             Bitmap toCenter = ImageHelper.scaleCenterCrop(bitmap, width, height);
