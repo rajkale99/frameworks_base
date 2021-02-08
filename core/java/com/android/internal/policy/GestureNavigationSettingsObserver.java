@@ -175,6 +175,7 @@ public class GestureNavigationSettingsObserver extends ContentObserver {
                 false, this, UserHandle.USER_ALL);
         r.registerContentObserver(
                 Settings.System.getUriFor(Settings.System.RIGHT_VERTICAL_BACK_SWIPE_ACTION),
+		false, this, UserHandle.USER_ALL);
         r.registerContentObserver(
                 Settings.System.getUriFor(Settings.System.EDGE_GESTURE_Y_DEAD_ZONE),
                 false, this, UserHandle.USER_ALL);
@@ -269,6 +270,8 @@ public class GestureNavigationSettingsObserver extends ContentObserver {
         return Settings.System.getIntForUser(mContext.getContentResolver(),
             Settings.System.RIGHT_VERTICAL_BACK_SWIPE_ACTION, 0,
             UserHandle.USER_CURRENT);
+    }
+
     public int getDeadZoneMode() {
         int mode = Settings.System.getIntForUser(mContext.getContentResolver(),
             Settings.System.EDGE_GESTURE_Y_DEAD_ZONE, 0,
