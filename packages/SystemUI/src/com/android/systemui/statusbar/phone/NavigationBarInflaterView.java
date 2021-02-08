@@ -195,8 +195,6 @@ public class NavigationBarInflaterView extends FrameLayout
     }
 
     public void setNavigationBarLayout(String layoutValue) {
-        // Don't apply a custom layout when using gestural navigation
-        if (mNavBarMode == NAV_BAR_MODE_GESTURAL) return;
         if (!Objects.equals(mCurrentLayout, layoutValue)) {
             mUsingCustomLayout = layoutValue != null;
             clearViews();
@@ -205,8 +203,8 @@ public class NavigationBarInflaterView extends FrameLayout
     }
 
     public void onLikelyDefaultLayoutChange() {
-        // Don't override custom layouts unless we're using full gestures
-        if (mUsingCustomLayout && mNavBarMode != NAV_BAR_MODE_GESTURAL) return;
+        // Don't override custom layouts
+        if (mUsingCustomLayout) return;
 
         // Reevaluate new layout
         final String newValue = getDefaultLayout();
