@@ -271,10 +271,10 @@ public class NavigationBarView extends FrameLayout implements
     };
 
     private final Consumer<Boolean> mRotationButtonListener = (visible) -> {
-        if (visible) {
-            // If the button will actually become visible and the navbar is about to hide,
-            // tell the statusbar to keep it around for longer
+        if (visible && !isGesturalMode(mNavBarMode)) {
+           
             mAutoHideController.touchAutoHide();
+            
         }
         notifyActiveTouchRegions();
     };
