@@ -186,6 +186,16 @@ public class QSTileView extends QSTileBaseView {
               return false;
             default:
               return false;
+	}
+    }
+    @Override
+    public void textVisibility() {
+        if (Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.QS_TILE_TITLE_VISIBILITY, 1,
+                UserHandle.USER_CURRENT) == 1) {
+           mLabelContainer.setVisibility(View.VISIBLE);
+        } else {
+           mLabelContainer.setVisibility(View.GONE);
         }
     }
 }
