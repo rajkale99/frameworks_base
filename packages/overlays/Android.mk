@@ -83,23 +83,35 @@ LOCAL_REQUIRED_MODULES := \
 	IconPackFilledPixelThemePickerOverlay \
 	IconPackFilledSettingsOverlay \
 	IconPackFilledSystemUIOverlay \
+	IconPackKaiAndroidOverlay \
+	IconPackKaiPixelLauncherOverlay \
+	IconPackKaiPixelThemePickerOverlay \
+	IconPackKaiSettingsOverlay \
+	IconPackKaiSystemUIOverlay \
 	IconPackRoundedAndroidOverlay \
 	IconPackRoundedPixelLauncherOverlay \
 	IconPackRoundedPixelThemePickerOverlay \
 	IconPackRoundedSettingsOverlay \
 	IconPackRoundedSystemUIOverlay \
-        IconShapeHeartOverlay \
+	IconPackSamAndroidOverlay \
+	IconPackSamPixelLauncherOverlay \
+	IconPackSamPixelThemePickerOverlay \
+	IconPackSamSettingsOverlay \
+	IconPackSamSystemUIOverlay \
+	IconPackVictorAndroidOverlay \
+	IconPackVictorPixelLauncherOverlay \
+	IconPackVictorPixelThemePickerOverlay \
+	IconPackVictorSettingsOverlay \
+	IconPackVictorSystemUIOverlay \
+	IconShapeHeartOverlay \
+	IconShapeMallowOverlay \
 	IconShapePebbleOverlay \
-        IconShapeCylinderOverlay \
-	IconShapeRoundedHexagonOverlay \
-	IconShapeLeafOverlay \
 	IconShapeRoundedRectOverlay \
 	IconShapeSquareOverlay \
 	IconShapeSquircleOverlay \
 	IconShapeTaperedRectOverlay \
 	IconShapeTeardropOverlay \
 	IconShapeVesselOverlay \
-	IconShapeMallowOverlay \
 	NavigationBarMode3ButtonOverlay \
 	NavigationBarModeGesturalOverlay \
 	NavigationBarModeGesturalOverlayNarrowBack \
