@@ -155,9 +155,6 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
                 mPressPending = true;
             } else {
                 mHandler.post(() -> showCircle());
-                if (mPressPending) {
-                mPressPending = false;
-            }
             }
 
         }
@@ -165,6 +162,9 @@ public class FODCircleView extends ImageView implements TunerService.Tunable {
         @Override
         public void onFingerUp() {
             mHandler.post(() -> hideCircle());
+	    if (mPressPending) {
+                mPressPending = false;
+            }
         }
     };
 
