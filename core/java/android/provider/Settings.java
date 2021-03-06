@@ -5525,7 +5525,7 @@ public final class Settings {
          */
         public static final String NOTIFICATION_HEADERS = "notification_headers";
 
-	/**
+        /**
          * @hide
          */
         public static final String OMNIJAWS_WEATHER_ICON_PACK = "omnijaws_weather_icon_pack";
@@ -5576,12 +5576,6 @@ public final class Settings {
          * @hide
          */
         public static final String LOCKSCREEN_CHARGING_ANIMATION = "lockscreen_charging_animation";
-
-	/**
-         * Show data usage in QS header
-         * @hide
-         */
-        public static final String QS_DATAUSAGE = "qs_datausage";
 
         /**
         * by.tikkiX2

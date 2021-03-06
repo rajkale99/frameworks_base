@@ -35,7 +35,6 @@ import android.graphics.Rect;
 import android.media.AudioManager;
 import android.os.Handler;
 import android.os.UserHandle;
-import android.os.Looper;
 import android.provider.AlarmClock;
 import android.provider.Settings;
 import android.service.notification.ZenModeConfig;
@@ -81,7 +80,6 @@ import com.android.systemui.privacy.PrivacyChipEvent;
 import com.android.systemui.privacy.PrivacyItem;
 import com.android.systemui.privacy.PrivacyItemController;
 import com.android.systemui.qs.QSDetail.Callback;
-import com.android.systemui.statusbar.info.DataUsageView;
 import com.android.systemui.qs.carrier.QSCarrierGroup;
 import com.android.systemui.settings.BrightnessController;
 import com.android.systemui.statusbar.CommandQueue;
@@ -170,38 +168,14 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     private BatteryMeterView mBatteryRemainingIcon;
     private RingerModeTracker mRingerModeTracker;
     private BroadcastDispatcher mBroadcastDispatcher;
-
-    // Data Usage
-    private View mDataUsageLayout;
-    private ImageView mDataUsageImage;
-    private DataUsageView mDataUsageView;
     private boolean mAllIndicatorsEnabled;
     private boolean mMicCameraIndicatorsEnabled;
 
     private PrivacyItemController mPrivacyItemController;
     private final UiEventLogger mUiEventLogger;
+
     // Used for RingerModeTracker
     private final LifecycleRegistry mLifecycle = new LifecycleRegistry(this);
-
-    private class SettingsObserver extends ContentObserver {
-        SettingsObserver(Handler handler) {
-            super(handler);
-        }
-
-        void observe() {
-            ContentResolver resolver = getContext().getContentResolver();
-            resolver.registerContentObserver(Settings.System
-                    .getUriFor(Settings.System.QS_DATAUSAGE), false,
-                    this, UserHandle.USER_ALL);
-            }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            updateSettings();
-        }
-    }
-
-    private SettingsObserver mSettingsObserver = new SettingsObserver(mHandler);
 
     private boolean mHasTopCutout = false;
     private int mStatusBarPaddingTop = 0;
@@ -288,9 +262,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 mQuickQsBrightness.findViewById(R.id.brightness_icon),
                 mQuickQsBrightness.findViewById(R.id.brightness_slider),
                 mBroadcastDispatcher);
-        mDataUsageView = findViewById(R.id.data_sim_usage);
-        mDataUsageLayout = findViewById(R.id.daily_data_usage_layout);
-        mDataUsageImage = findViewById(R.id.daily_data_usage_icon);
 
         // Views corresponding to the header info section (e.g. ringer and next alarm).
         mHeaderTextContainerView = findViewById(R.id.header_text_container);
@@ -519,22 +490,6 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         updateStatusIconAlphaAnimator();
         updateHeaderTextContainerAlphaAnimator();
         updatePrivacyChipAlphaAnimator();
-    }
-
-    private void updateSettings() {
-	updateDataUsageView();
-     }
-
-    private void updateDataUsageView() {
-        if (mDataUsageView.isDataUsageEnabled() != 0) {
-            mDataUsageLayout.setVisibility(View.VISIBLE);
-            mDataUsageImage.setVisibility(View.VISIBLE);
-            mDataUsageView.setVisibility(View.VISIBLE);
-        } else {
-            mDataUsageView.setVisibility(View.GONE);
-            mDataUsageImage.setVisibility(View.GONE);
-            mDataUsageLayout.setVisibility(View.GONE);
-        }
     }
 
     private void updateStatusIconAlphaAnimator() {
