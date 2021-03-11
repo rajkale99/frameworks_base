@@ -45,7 +45,6 @@ import android.view.animation.BounceInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -170,7 +169,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
     private int mMediaTotalBottomMargin;
     private int mFooterMarginStartHorizontal;
     private Consumer<Boolean> mMediaVisibilityChangedListener;
-    private boolean mMediaVisible;
 
     // custom
     private boolean mBrightnessBottom;
@@ -236,14 +234,11 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
                     (PagedTileLayout) mRegularTileLayout);
         }
         mQSLogger.logAllTilesChangeListening(mListening, getDumpableTag(), mCachedSpecs);
-        updateSettings();
         updateResources();
     }
 
     protected void onMediaVisibilityChanged(Boolean visible) {
         switchTileLayout();
-        mMediaVisible = visible;
-        updateMinRows();
         if (mMediaVisibilityChangedListener != null) {
             mMediaVisibilityChangedListener.accept(visible);
         }
@@ -273,6 +268,7 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
         return mRegularTileLayout;
     }
+
 
     protected QSTileLayout createHorizontalTileLayout() {
         return createRegularTileLayout();
@@ -442,22 +438,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         view.setVisibility(TunerService.parseIntegerSwitch(newValue, true) ? VISIBLE : GONE);
     }
 
-    private void updateMinRows() {
-        if (getTileLayout() == null) {
-            return;
-        }
-        if (!mMediaVisible) {
-            int rows = Settings.System.getIntForUser(
-                    mContext.getContentResolver(), Settings.System.QS_LAYOUT_ROWS, 3,
-                    UserHandle.USER_CURRENT);
-            boolean isPortrait = mContext.getResources().getConfiguration().orientation
-                    == Configuration.ORIENTATION_PORTRAIT;
-            getTileLayout().setMinRows(isPortrait ? rows : 1);
-        } else {
-            getTileLayout().setMinRows(2);
-        }
-    }
-
     public void openDetails(String subPanel) {
         QSTile tile = getTile(subPanel);
         // If there's no tile with that name (as defined in QSFactoryImpl or other QSFactory),
@@ -586,7 +566,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         if (newConfig.orientation != mLastOrientation) {
             mLastOrientation = newConfig.orientation;
             switchTileLayout();
-            updateMinRows();
         }
     }
 
@@ -957,7 +936,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         if (mTileLayout != null) {
             mTileLayout.addTile(r);
             tileClickListener(r.tile, r.tileView);
-            configureTile(r.tile, r.tileView);
         }
 
         return r;
@@ -1266,9 +1244,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         int getOffsetTop(TileRecord tile);
 
         boolean updateResources();
-        int getNumColumns();
-        void updateSettings();
-        boolean isShowTitles();
 
         void setSidePadding(int paddingStart, int paddingEnd);
 
@@ -1295,8 +1270,6 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
         }
 
         default void setExpansion(float expansion) {}
-
-
 
         int getNumVisibleTiles();
     }
@@ -1363,39 +1336,5 @@ public class QSPanel extends LinearLayout implements Tunable, Callback, Brightne
                     setAnimationTile(v);
             });
         }
-    }
-	
-	private void configureTile(QSTile t, QSTileView v) {
-        if (mTileLayout != null) {
-            v.setHideLabel(!mTileLayout.isShowTitles());
-            if (t.isDualTarget()) {
-                if (!mTileLayout.isShowTitles()) {
-                    v.setOnLongClickListener(view -> {
-                        t.secondaryClick();
-                        return true;
-                    });
-                } else {
-                    v.setOnLongClickListener(view -> {
-                        t.longClick();
-                        return true;
-                    });
-                }
-            }
-        }
-    }
-
-    public void updateSettings() {
-        if (mTileLayout != null) {
-            mTileLayout.updateSettings();
-
-            for (TileRecord r : mRecords) {
-                configureTile(r.tile, r.tileView);
-            }
-        }
-        updateMinRows();
-    }
-
-    public int getNumColumns() {
-        return mTileLayout.getNumColumns();
     }
 }

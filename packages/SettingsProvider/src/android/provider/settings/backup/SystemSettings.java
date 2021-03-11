@@ -87,7 +87,6 @@ public class SystemSettings {
         Settings.System.DOUBLE_TAP_SLEEP_GESTURE,
         Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN,
         Settings.System.CENTER_NOTIFICATION_HEADERS,
-        Settings.System.QS_LAYOUT_ROWS,
         Settings.System.RINGTONE_VIBRATION_PATTERN,
         Settings.System.CUSTOM_RINGTONE_VIBRATION_PATTERN,
         Settings.System.NOTIFICATION_HEADERS,

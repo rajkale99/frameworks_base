@@ -88,9 +88,8 @@ public class TileAdapter extends RecyclerView.Adapter<Holder> implements TileSta
     private int mAccessibilityAction = ACTION_NONE;
     private int mAccessibilityFromIndex;
     private QSTileHost mHost;
-    private boolean mHideLabel;
     private final UiEventLogger mUiEventLogger;
-    //private final AccessibilityDelegateCompat mAccessibilityDelegate;
+    private final AccessibilityDelegateCompat mAccessibilityDelegate;
     private RecyclerView mRecyclerView;
 
     public TileAdapter(Context context, UiEventLogger uiEventLogger) {
@@ -99,7 +98,7 @@ public class TileAdapter extends RecyclerView.Adapter<Holder> implements TileSta
         mItemTouchHelper = new ItemTouchHelper(mCallbacks);
         mDecoration = new TileItemDecoration(context);
         mMinNumTiles = context.getResources().getInteger(R.integer.quick_settings_min_num_tiles);
-        //mAccessibilityDelegate = new TileAdapterDelegate();
+        mAccessibilityDelegate = new TileAdapterDelegate();
     }
 
     @Override
@@ -318,28 +317,13 @@ public class TileAdapter extends RecyclerView.Adapter<Holder> implements TileSta
 
         holder.mTileView.handleStateChanged(info.state);
         holder.mTileView.setShowAppLabel(position > mEditIndex && !info.isSystem);
-        holder.mTileView.setHideLabel(mHideLabel);
-        /*holder.mTileView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
+        holder.mTileView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_YES);
         holder.mTileView.setClickable(true);
         holder.mTileView.setOnClickListener(null);
         holder.mTileView.setFocusable(true);
-        holder.mTileView.setFocusableInTouchMode(true);*/
+        holder.mTileView.setFocusableInTouchMode(true);
 
-        holder.mTileView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int position = holder.getLayoutPosition();
-                if (position < mEditIndex) {
-                    if (canRemoveTiles()) {
-                        move(position, mEditIndex);
-                    }
-                } else {
-                    move(position, mEditIndex);
-                }
-            }
-        });
-
-        /*if (mAccessibilityAction != ACTION_NONE) {
+        if (mAccessibilityAction != ACTION_NONE) {
             holder.mTileView.setClickable(selectable);
             holder.mTileView.setFocusable(selectable);
             holder.mTileView.setFocusableInTouchMode(selectable);
@@ -361,7 +345,7 @@ public class TileAdapter extends RecyclerView.Adapter<Holder> implements TileSta
         }
         if (position == mFocusIndex) {
             focusOnHolder(holder);
-        }*/
+        }
     }
 
     private void focusOnHolder(Holder holder) {
@@ -518,8 +502,7 @@ public class TileAdapter extends RecyclerView.Adapter<Holder> implements TileSta
                 mTileView.setBackground(null);
                 mTileView.getIcon().disableAnimation();
                 mTileView.setTag(this);
-                //ViewCompat.setAccessibilityDelegate(mTileView, mAccessibilityDelegate);
-
+                ViewCompat.setAccessibilityDelegate(mTileView, mAccessibilityDelegate);
             }
         }
 
@@ -598,18 +581,13 @@ public class TileAdapter extends RecyclerView.Adapter<Holder> implements TileSta
         }
     }
 
-    private class OmniSpanSizeLookup extends SpanSizeLookup {
-        private int mColumns = 3;
+    private final SpanSizeLookup mSizeLookup = new SpanSizeLookup() {
         @Override
         public int getSpanSize(int position) {
             final int type = getItemViewType(position);
-            return type == TYPE_EDIT || type == TYPE_DIVIDER || type == TYPE_HEADER ? mColumns : 1;
+            return type == TYPE_EDIT || type == TYPE_DIVIDER || type == TYPE_HEADER ? 3 : 1;
         }
-        public void setColumnCount(int columns) {
-            mColumns = columns;
-        }
-    }
-    private final OmniSpanSizeLookup mSizeLookup = new OmniSpanSizeLookup();
+    };
 
     private class TileItemDecoration extends ItemDecoration {
         private final Drawable mDrawable;
@@ -729,15 +707,4 @@ public class TileAdapter extends RecyclerView.Adapter<Holder> implements TileSta
         public void onSwiped(ViewHolder viewHolder, int direction) {
         }
     };
-
-    public void setColumnCount(int columns) {
-        mSizeLookup.setColumnCount(columns);
-    }
-
-    public void setHideLabel(boolean value) {
-        if (mHideLabel != value) {
-            mHideLabel = value;
-            notifyDataSetChanged();
-        }
-    }
 }

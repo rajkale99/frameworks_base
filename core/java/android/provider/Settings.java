@@ -4947,12 +4947,6 @@ public final class Settings {
          */
         public static final String VIBRATE_ON_CALLWAITING = "vibrate_on_callwaiting";
 
-        /**
-         * Number of maximum qs rows to show
-         * @hide
-         */
-        public static final String QS_LAYOUT_ROWS = "qs_layout_rows";
-
          /**
          * Whether the phone vibrates on disconnect
          * @hide
@@ -5137,12 +5131,6 @@ public final class Settings {
          * @hide
          */
         public static final String OMNI_QS_LAYOUT_ROWS = "qs_layout_rows";
-
-        /**
-         * Number of qs columns on quickbar
-         * @hide
-         */
-        public static final String QS_QUICKBAR_COLUMNS = "qs_quickbar_columns";
 
         /**
          * @hide
@@ -5771,6 +5759,7 @@ public final class Settings {
          */
         public static final String STATUS_BAR_CLOCK_FONT_STYLE = "status_bar_clock_font_style";
 
+
         /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
@@ -5909,10 +5898,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(VOLUME_KEY_CURSOR_CONTROL);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_GESTURE);
             PRIVATE_SETTINGS.add(DOUBLE_TAP_SLEEP_LOCKSCREEN);
-            PRIVATE_SETTINGS.add(OMNI_QS_LAYOUT_COLUMNS_LANDSCAPE);
-            PRIVATE_SETTINGS.add(OMNI_QS_LAYOUT_COLUMNS);
-            PRIVATE_SETTINGS.add(OMNI_QS_TILE_TITLE_VISIBILITY);
-            PRIVATE_SETTINGS.add(OMNI_QS_LAYOUT_ROWS);
             PRIVATE_SETTINGS.add(ANIM_TILE_STYLE);
             PRIVATE_SETTINGS.add(ANIM_TILE_DURATION);
             PRIVATE_SETTINGS.add(ANIM_TILE_INTERPOLATOR);
