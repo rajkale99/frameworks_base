@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.input.InputManager;
-import android.hardware.SensorManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
@@ -48,9 +47,6 @@ import java.util.List;
 
 import com.android.internal.statusbar.IStatusBarService;
 
-import static android.hardware.Sensor.TYPE_LIGHT;
-import static android.hardware.Sensor.TYPE_PROXIMITY;
-
 /**
  * Some custom utilities
  */
@@ -58,21 +54,6 @@ public class LegionUtils {
 
     public static final String INTENT_SCREENSHOT = "action_handler_screenshot";
     public static final String INTENT_REGION_SCREENSHOT = "action_handler_region_screenshot";
-
-    /**
-     * @hide
-     */
-    public static final String SYSTEMUI_PACKAGE_NAME = "com.android.systemui";
-
-    /**
-     * @hide
-     */
-    public static final String ACTION_DISMISS_KEYGUARD = SYSTEMUI_PACKAGE_NAME +".ACTION_DISMISS_KEYGUARD";
-
-    /**
-     * @hide
-     */
-    public static final String DISMISS_KEYGUARD_EXTRA_INTENT = "launch";
 
     private static OverlayManager mOverlayService;
 
@@ -108,16 +89,6 @@ public class LegionUtils {
         NetworkInfo wifi = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobile = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
         return wifi.isConnected() || mobile.isConnected();
-    }
-
-    public static boolean deviceSupportsProximitySensor(Context context) {
-        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        return sm.getDefaultSensor(TYPE_PROXIMITY) != null;
-    }
-
-    public static boolean deviceSupportsLightSensor(Context context) {
-        SensorManager sm = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        return sm.getDefaultSensor(TYPE_LIGHT) != null;
     }
 
     public static boolean isPackageInstalled(Context context, String pkg, boolean ignoreState) {
@@ -158,16 +129,6 @@ public class LegionUtils {
 
     public static void toggleCameraFlash() {
         FireActions.toggleCameraFlash();
-    }
-
-    /**
-     * @hide
-     */
-    public static void launchKeyguardDismissIntent(Context context, UserHandle user, Intent launchIntent) {
-        Intent keyguardIntent = new Intent(ACTION_DISMISS_KEYGUARD);
-        keyguardIntent.setPackage(SYSTEMUI_PACKAGE_NAME);
-        keyguardIntent.putExtra(DISMISS_KEYGUARD_EXTRA_INTENT, launchIntent);
-        context.sendBroadcastAsUser(keyguardIntent, user);
     }
 
 	public static void launchCamera(Context context) {

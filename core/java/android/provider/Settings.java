@@ -4893,11 +4893,6 @@ public final class Settings {
          */
         public static final String QS_TILE_TITLE_VISIBILITY = "qs_tile_title_visibility";
 
-	/**
-         * @hide
-         */
-        public static final String DEVICE_PROXI_CHECK_ENABLED = "device_proxi_check_enabled";
-
         /**
          * @hide
          */
@@ -5910,7 +5905,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(LOCK_TO_APP_ENABLED);
             PRIVATE_SETTINGS.add(EGG_MODE);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
-            PRIVATE_SETTINGS.add(DEVICE_PROXI_CHECK_ENABLED);
             PRIVATE_SETTINGS.add(TORCH_LONG_PRESS_POWER_GESTURE);
             PRIVATE_SETTINGS.add(TORCH_LONG_PRESS_POWER_TIMEOUT);
             PRIVATE_SETTINGS.add(VOLUME_ROCKER_WAKE);
@@ -5969,7 +5963,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(AICP_LOCKSCREEN_WEATHER_STYLE);
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_TEMP);
             PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_CITY);
-	    PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_IMAGE);
+	          PRIVATE_SETTINGS.add(LOCKSCREEN_WEATHER_SHOW_IMAGE);
             PRIVATE_SETTINGS.add(QS_PANEL_BG_ALPHA);
             PRIVATE_SETTINGS.add(QS_PANEL_TYPE_BACKGROUND);
             PRIVATE_SETTINGS.add(QS_PANEL_CUSTOM_IMAGE);
