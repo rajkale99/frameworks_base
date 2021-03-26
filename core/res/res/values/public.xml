@@ -3043,7 +3043,6 @@
        =============================================================== -->
 
   <public-group type="attr" first-id="0x01010617">
-    <!-- attribute definitions go here -->
      <public name="colorAccentBackground" />
      <public name="colorAccentOverlay" />
   </public-group>
@@ -3053,7 +3052,6 @@
   </public-group>
 
   <public-group type="color" first-id="0x0106001d">
-    <!-- color definitions go here -->
     <public name="accent_background_device_default" />
   </public-group>
 
