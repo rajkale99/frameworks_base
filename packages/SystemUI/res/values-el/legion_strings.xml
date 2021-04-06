@@ -153,5 +153,27 @@
 
     <!-- QS Header data usage info -->
     <string name="usage_data">σε χρήση</string>
+     
+    <string name="scrollss">Κύλιση</string>
+
+    <string name="lockscreen_default">Προεπιλογή</string>
+    <string name="lockscreen_hidden">Καμία</string>
+    <string name="custom_hint">Σύρσιμο από το εικονίδιο για άνοιγμα</string>
+
+    <!-- DC Dimming -->
+    <string name="quick_settings_dc_dimming_label">Ντιμάρισμα DC</string>
+    <string name="quick_settings_dc_brightness_mode">Κατάσταση φωτεινότητας</string>
+    <string name="quick_settings_dc_full_auto">Αυτόματη κατάσταση</string>
+
+    <!-- Daily data usage -->
+    <string name="daily_data_usage_title">Σημερινή\χρήση</string>
+
+	<!-- App Lock -->
+    <string name="applock_locked">&#160;είναι κλειδωμένη</string>
+    <string name="applock_fingerprint_face">, βάλε το αποτύπωμα ή το πρόσωπό σου για ξεκλείδωμα</string>
+    <string name="applock_face">&#160;ή το πρόσωπό σου για ξεκλείδωμα</string>
+    <string name="applock_fingerprint">&#160;ή το αποτύπωμά σου για ξεκλείδωμα</string>
+    <string name="applock_credential">&#160;για ξεκλείδωμα</string>
+    <string name="applock_unlock">Ξεκλείδωμα</string>
 
 </resources>

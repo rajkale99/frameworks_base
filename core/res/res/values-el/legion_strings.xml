@@ -15,5 +15,10 @@
 
     <!-- Pocket Lock -->
     <string name="pocket_lock_message_long_press">Πατήστε και κρατήστε το πλήκτρο ενέργειας, για ξεκλείδωμα</string>
+     
+     <!-- SystemUI Restart -->
+    <string name="systemui_restart_title">Χρειάζεται επανεκκίηση του SystemUI</string>
+    <string name="systemui_restart_message">Για να εμφανιστούν όλες οι αλλαγές, χρειάζεται επανεκκίηση του SystemUI. Να επανεκκινήσει τώρα?</string>
+     
 
 </resources>
