@@ -169,5 +169,7 @@
     <string name="applock_fingerprint">&#160;ή το αποτύπωμά σου για ξεκλείδωμα</string>
     <string name="applock_credential">&#160;για ξεκλείδωμα</string>
     <string name="applock_unlock">Ξεκλείδωμα</string>
+	
+    <string name="biometric_dialog_button_use_face">Χρήση προσώπου</string>
 
 </resources>
