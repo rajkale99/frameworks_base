@@ -46,6 +46,7 @@
         android:singleLine="true"
         android:textAppearance="@style/TextAppearance.StatusBar.Expanded.Clock"
         systemui:showDark="false" />
+
     </LinearLayout>
 
     <android.widget.Space
@@ -72,6 +73,16 @@
         android:layout_height="match_parent"
 	systemui:textAppearance="@style/TextAppearance.QS.Status"
         android:visibility="gone" />
+
+    <com.android.systemui.BatteryMeterView
+        android:id="@+id/battery"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:gravity="center_vertical|end"
+        android:singleLine="true"
+        android:textAppearance="@style/TextAppearance.StatusBar.Clock"
+        android:paddingStart="@dimen/status_bar_left_clock_starting_padding"
+        android:paddingEnd="@dimen/status_bar_left_clock_starting_padding" />
 
     </LinearLayout>
 </LinearLayout>

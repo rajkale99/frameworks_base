@@ -33,10 +33,12 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.UserHandle;
 import android.os.Looper;
 import android.provider.AlarmClock;
+import android.provider.CalendarContract;
 import android.provider.Settings;
 import android.service.notification.ZenModeConfig;
 import android.text.format.DateUtils;
@@ -178,6 +180,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
     private Space mSpace;
     private BatteryMeterView mBatteryRemainingIcon;
     private RingerModeTracker mRingerModeTracker;
+    private BatteryMeterView mBatteryMeterView;
     private BroadcastDispatcher mBroadcastDispatcher;
     private boolean mAllIndicatorsEnabled;
     private boolean mMicCameraIndicatorsEnabled;
@@ -271,6 +274,11 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         iconContainer.setShouldRestrictIcons(false);
         mIconManager = new TintedIconManager(iconContainer, mCommandQueue);
 
+        mBatteryMeterView = findViewById(R.id.battery);
+        mBatteryMeterView.setForceShowPercent(true);
+        mBatteryMeterView.setOnClickListener(this);
+        mBatteryMeterView.setPercentShowMode(BatteryMeterView.MODE_ESTIMATE);
+
         mQuickQsBrightness = findViewById(R.id.quick_qs_brightness_bar);
         mBrightnessController = new BrightnessController(getContext(),
                 mQuickQsBrightness.findViewById(R.id.brightness_icon),
@@ -321,7 +329,7 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         mSpace = findViewById(R.id.space);
 
         // Tint for the battery icons are handled in setupHost()
-        mBatteryRemainingIcon = findViewById(R.id.batteryRemainingIcon);
+        mBatteryRemainingIcon = findViewById(R.id.battery);
         mBatteryRemainingIcon.setIsQsHeader(true);
         mBatteryRemainingIcon.setPercentShowMode(getBatteryPercentMode());
         mBatteryRemainingIcon.setOnClickListener(this);
@@ -805,6 +813,12 @@ public class QuickStatusBarHeader extends RelativeLayout implements
         } else if (v == mBatteryRemainingIcon) {
             mActivityStarter.postStartActivityDismissingKeyguard(new Intent(
                     Intent.ACTION_POWER_USAGE_SUMMARY), 0);
+        } else if (v == mDateView) {
+            Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+            builder.appendPath("time");
+            builder.appendPath(Long.toString(System.currentTimeMillis()));
+            Intent todayIntent = new Intent(Intent.ACTION_VIEW, builder.build());
+            Dependency.get(ActivityStarter.class).postStartActivityDismissingKeyguard(todayIntent, 0);
         }
     }
 
@@ -845,7 +859,11 @@ public class QuickStatusBarHeader extends RelativeLayout implements
                 android.R.attr.colorForeground);
         float intensity = getColorIntensity(colorForeground);
         int fillColor = mDualToneHandler.getSingleColor(intensity);
-        mBatteryRemainingIcon.onDarkChanged(tintArea, intensity, fillColor);
+
+        // Use SystemUI context to get battery meter colors, and let it use the default tint (white)
+        mBatteryMeterView.setColorsFromContext(mHost.getContext());
+        mBatteryMeterView.onDarkChanged(new Rect(), 0, DarkIconDispatcher.DEFAULT_ICON_TINT);
+
     }
 
     public void setCallback(Callback qsPanelCallback) {
