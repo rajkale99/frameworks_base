@@ -13,8 +13,10 @@
 -->
 <resources>
 
-    <!-- Pocket Lock --> 
-    <string name="pocket_lock_message_long_press">Удерживайте кнопку питания для разблокировки</string>
+    <!-- Pocket Lock -->
+    <string name="pocket_lock_message_long_press">Нажмите и удерживайте кнопку питания, чтобы разблокировать</string>
 
+    <!-- SystemUI Restart -->
+    <string name="systemui_restart_title">Требуется перезапуск SystemUI</string>
+    <string name="systemui_restart_message">Чтобы все изменения вступили в силу, требуется перезапуск SystemUI. Перезагрузить SystemUI сейчас?</string>
 </resources>
-
