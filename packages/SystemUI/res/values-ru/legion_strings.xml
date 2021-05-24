@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2020 Legion Rom
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string name="statusbar_items_title">Значки в строке состояния</string>
+    <string name="status_bar_vpn">VPN</string>
+
+     <!-- Sync QS Tile -->
+    <string name="quick_settings_sync_label">Синхронизация</string>
+    <string name="accessibility_quick_settings_sync_off">Выключить синхронизацию</string>
+    <string name="accessibility_quick_settings_sync_on">Включить синхронизацию</string>
+    <string name="accessibility_quick_settings_sync_changed_off">Синхронизация выключена</string>
+    <string name="accessibility_quick_settings_sync_changed_on">Синхронизация включена</string>
+
+    <!-- Always on Display Tile -->
+    <string name="quick_settings_always_on_display_label">Всегда включенный экран</string>
+    <string name="accessibility_quick_settings_always_on_display_off">Выключить Всегда включенный экран</string>
+    <string name="accessibility_quick_settings_always_on_display_on">Включить всегда включенный экран</string>
+    <string name="accessibility_quick_settings_always_on_display_changed_off">Всегда включенный экран выключен</string>
+    <string name="accessibility_quick_settings_always_on_display_changed_on">Всегда включенный экран включен</string>
+
+    <!-- Advance location quick setting tile -->
+    <string name="quick_settings_location_secondary_battery_saving">Экономия заряда батареи</string>
+    <string name="accessibility_quick_settings_location_battery_saving">Отчет о местоположении: режим экономии заряда батареи.</string>
+    <string name="quick_settings_location_secondary_gps_only">Только GPS</string>
+    <string name="accessibility_quick_settings_location_gps_only">Отчет о местоположении:  режим использования GPS спутников</string>
+    <string name="quick_settings_location_secondary_high_accuracy">Высокая точность</string>
+    <string name="accessibility_quick_settings_location_high_accuracy">Отчет о местоположении:  режим высокой точности</string>
+
+    <!-- Advanced restart -->
+    <string name="global_action_reboot">Перезагрузка</string>
+    <string name="global_action_reboot_system">Система</string>
+    <string name="global_action_reboot_progress">Перезагрузка\u2026</string>
+    <string name="global_action_reboot_recovery">Рекавери</string>
+    <string name="global_action_reboot_recovery_progress">Перезагрузка в рекавери\u2026</string>
+    <string name="global_action_reboot_bootloader">Загрузчик</string>
+    <string name="global_action_reboot_bootloader_progress">Перезагрузка в загрузчик\u2026</string>
+    <string name="global_action_reboot_fastboot">Fastbootd</string>
+    <string name="global_action_reboot_fastboot_progress">Перезагрузка в fastbootd\u2026</string>
+    <string name="global_action_restart_systemui">SystemUI</string>
+    <string name="global_action_settings">Настройки</string>
+    <string name="global_action_screenshot">Снимок экрана</string>
+    <string name="global_action_screenrecord">Запись экрана</string>
+    <string name="global_action_flashlight">Фонарик</string>
+
+    <!-- Label for current user in power menu options dialog -->
+    <string name="global_action_current_user">Текущий</string>
+
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time" formatted="false"><xliff:g id="percentage">%2$s</xliff:g> • Dash зарядка (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> до полного)</string>
+    <string name="keyguard_plugged_in_dash_charging">Dash зарядка</string>
+    
+    <!-- Indication on the keyguard that is shown when the device is charging with a warp charger. Should match keyguard_plugged_in_warp_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_warp_charging_time" formatted="false"><xliff:g id="percentage">%2$s</xliff:g> • Warp зарядка (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> до полного)</string>
+    <string name="keyguard_plugged_in_warp_charging">Warp зарядка</string>
+
+    <!-- CPUInfo tile -->
+    <string name="quick_settings_cpuinfo_label">Информация о CPU</string>
+    <string name="accessibility_quick_settings_cpuinfo_off">Выключить информацию о CPU</string>
+    <string name="accessibility_quick_settings_cpuinfo_on">Включить информацию о CPU</string>
+    <string name="accessibility_quick_settings_cpuinfo_changed_off">Информация о CPU выключена</string>
+    <string name="accessibility_quick_settings_cpuinfo_changed_on">Информация о CPU  включена</string>
+
+    <!-- Caffeine QS Tile -->
+    <string name="quick_settings_caffeine_label">Запрет сна</string>
+    <string name="quick_settings_caffeine_label_off">Выкл.</string>
+    <string name="accessibility_quick_settings_caffeine_off">Запрет сна выкл.</string>
+    <string name="accessibility_quick_settings_caffeine_on">Запрет сна вкл.</string>
+
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Снимок экрана</string>
+    <string name="quick_settings_region_screenshot_label">Частичный снимок экрана</string>
+
+    <!-- HW Keys Tile -->
+    <string name="accessibility_quick_settings_hwkeys_on">Аппаратные кнопки включены</string>
+    <string name="accessibility_quick_settings_hwkeys_off">Аппаратные кнопки выключены</string>
+     <string name="quick_settings_hwkeys_label">Аппаратные кнопки</string>
+
+    <!-- Theme tile -->
+    <string name="system_theme_style_title">Тема системы</string>
+    <string name="quick_settings_theme_tile_title">Темы</string>
+    <string name="quick_settings_theme_tile_style_detail_title">Выбрать тему</string>
+    <string name="system_theme_style_light">Светлая</string>
+    <string name="system_theme_style_dark">Google Темная</string>
+    <string name="system_theme_style_solarized_dark">Светло-темная</string>
+    <string name="system_theme_style_baked_green">Темно-зеленый</string>
+    <string name="system_theme_style_choco_x">Шоколадная X</string>
+    <string name="system_theme_style_pitch_black">Полностью черная</string>
+    <string name="system_theme_style_dark_grey">Темно-серая</string>
+    <string name="system_theme_style_material_ocean">Светлый океан</string>
+    <string name="system_theme_style_xtended_clear">Прозрачный Xtended</string>
+
+    <!-- Sound QS Tile -->
+    <string name="quick_settings_sound_label">Звук</string>
+    <string name="quick_settings_sound_ring">Звонок</string>
+    <string name="quick_settings_sound_vibrate">Вибрация</string>
+    <string name="quick_settings_sound_dnd">Не беспокоить</string>
+
+    <!-- DataSwitch Tile -->
+    <string name="qs_data_switch_label">Поменять SIM для передачи данных</string>
+    <string name="qs_data_switch_changed_1">Используется SIM 1 для передачи данных</string>
+    <string name="qs_data_switch_changed_2">Используется SIM 2 для передачи данных</string>
+
+    <!-- SleepScreen QS Tile -->
+    <string name="quick_settings_sleepscreen_label">Спящий экран</string>
+
+    <string name="omnijaws_service_error">Ошибка</string>
+    <string name="omnijaws_service_unkown">Нет данных о погоде</string>
+    <string name="omnijaws_service_error_long">Ошибка при загрузке данных о погоде</string>
+    <string name="omnijaws_service_disabled">Служба отключена</string>
+    <string name="omnijaws_detail_header">Погода</string>
+    <string name="omnijaws_label_default">Погода</string>
+    <string name="omnijaws_current_text">Сейчас</string>
+    <string name="omnijaws_package_not_available">OmniJaws недоступен</string>
+    <string name="omnijaws_service_last_update">Последнее обновление:</string>
+
+    <!-- Reboot/Recovery QS tile -->
+    <string name="quick_settings_reboot_label">Перезагрузка</string>
+    <string name="quick_settings_reboot_recovery_label">Рекавери</string>
+
+    <string name="scrollss">Прокрутка</string>
+
+    <string name="lockscreen_default">По умолчанию</string>
+    <string name="lockscreen_hidden">Нет</string>
+    <string name="custom_hint">Проведите от значка, чтобы запустить</string>
+
+    <!-- DC Dimming -->
+    <string name="quick_settings_dc_dimming_label">DC Dimming</string>
+    <string name="quick_settings_dc_brightness_mode">Режим яркости</string>
+    <string name="quick_settings_dc_full_auto">Автоматический режим</string>
+
+    <!-- Daily data usage -->
+    <string name="daily_data_usage_title">Использовано сегодня</string>
+
+	<!-- App Lock -->
+    <string name="applock_locked">&#160;заблокировано</string>
+    <string name="applock_fingerprint_face">, отпечаток пальца или лицо для разблокировки</string>
+    <string name="applock_face">&#160;или лицо для разблокировки</string>
+    <string name="applock_fingerprint">&#160;или отпечаток пальца для разблокировки</string>
+    <string name="applock_credential">&#160;для разблокировки</string>
+    <string name="applock_unlock">Разблокировано</string>
+
+    <string name="biometric_dialog_button_use_face">Использовать лицо</string>
+
+</resources>
