@@ -1110,6 +1110,9 @@
 
         <!-- The color applied to framework controls in their normal state. -->
         <attr name="colorControlNormal" format="color" />
+        <attr name="colorAccentBackground" format="color" />
+
+        <attr name="colorAccentOverlay" format="color" />
 
         <!-- The color applied to framework controls in their activated (ex. checked) state. -->
         <attr name="colorControlActivated" format="color" />

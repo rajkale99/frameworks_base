@@ -604,6 +604,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     private final NotificationLockscreenUserManager mLockscreenUserManager;
     private final NotificationRemoteInputManager mRemoteInputManager;
     private boolean mWallpaperSupported;
+    private int mChargingAnimation;
 
     private VolumePluginManager mVolumePluginManager;
 
@@ -4375,6 +4376,9 @@ public class StatusBar extends SystemUI implements DemoMode,
 		resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_PANEL_BG_USE_NEW_TINT),
                     false, this, UserHandle.USER_ALL);
+                resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LOCKSCREEN_CHARGING_ANIMATION),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -4404,9 +4408,11 @@ public class StatusBar extends SystemUI implements DemoMode,
                 mQSPanel.getHost().reloadAllTiles();
 			} else if (uri.equals(Settings.System.getUriFor(Settings.System.QS_PANEL_BG_USE_NEW_TINT))) {
                 mQSPanel.getHost().reloadAllTiles();
-            }
-            update();
-        }
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_CHARGING_ANIMATION))) {
+                updateChargingAnimation();
+	    }
+	    update();
+         }
          public void update() {
             setHeadsUpStoplist();
             setHeadsUpBlacklist();
@@ -4418,6 +4424,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 	    updateGModStyle();
 	    stockQSHeaderStyle();
             updateQSHeaderStyle();
+	    updateChargingAnimation();
        }
     }
 
