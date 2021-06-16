@@ -4457,6 +4457,14 @@ public class StatusBar extends SystemUI implements DemoMode,
             mPresenter.setHeadsUpBlacklist();
     }
 
+    private void updateChargingAnimation() {
+        mChargingAnimation = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.LOCKSCREEN_CHARGING_ANIMATION, 1, UserHandle.USER_CURRENT);
+        if (mKeyguardIndicationController != null) {
+            mKeyguardIndicationController.updateChargingIndication();
+        }
+    }
+
     private void updateKeyguardStatusSettings() {
         mNotificationPanelViewController.updateKeyguardStatusSettings();
     }
