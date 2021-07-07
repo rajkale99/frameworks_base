@@ -232,12 +232,12 @@ public class KeyguardClockSwitch extends RelativeLayout {
 
     private int getLockClockFont() {
         return Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.LOCK_CLOCK_FONTS, 34);
+                Settings.System.LOCK_CLOCK_FONTS, 28);
     }
 
     private int getLockClockSize() {
         return Settings.System.getInt(mContext.getContentResolver(),
-                Settings.System.LOCKCLOCK_FONT_SIZE, 78);
+                Settings.System.LOCKCLOCK_FONT_SIZE, 100);
     }
 
     public void updateClockColor() {
@@ -480,7 +480,7 @@ public class KeyguardClockSwitch extends RelativeLayout {
     public void refreshLockFont() {
         final Resources res = getContext().getResources();
         boolean isPrimary = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;
-        int lockClockFont = isPrimary ? getLockClockFont() : 34;
+        int lockClockFont = isPrimary ? getLockClockFont() : 28;
 
         if (lockClockFont == 0) {
             mClockView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
